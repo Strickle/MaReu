@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mareu">
+    package="com.nounapps.mareu">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaReu">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.meeting_list.AddMeetingActivity"
+            android:label="Add Meeting"/>
+        <activity android:name=".ui.meeting_list.MeetingListActivity"
+            android:label="Ma Réu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

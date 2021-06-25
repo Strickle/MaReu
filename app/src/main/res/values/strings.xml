@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">MaReu</string>
+    
+    <string name="basket">delete_icon</string>
+    
+
+    <string-array name="meetings_room">
+        <item>Room01</item>
+        <item>Room02</item>
+        <item>Room03</item>
+        <item>Room04</item>
+        <item>Room05</item>
+        <item>Room06</item>
+        <item>Room07</item>
+        <item>Room08</item>
+        <item>Room09</item>
+        <item>Room10</item>
+    </string-array>
+
 </resources>

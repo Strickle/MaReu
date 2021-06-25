@@ -1,4 +1,4 @@
-package com.example.mareu;
+package com.nounapps.mareu;
 
 import android.content.Context;
 
