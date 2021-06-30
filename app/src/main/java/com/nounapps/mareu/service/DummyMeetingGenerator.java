@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class DummyMeetingGenerator {
+
+
     public static List<Meeting> getDummyMeetings() {
         return DUMMY_MEETINGS;
     }

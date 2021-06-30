@@ -13,7 +13,7 @@ public class Meeting implements Serializable {
     private long id;
 
     /** Objet of meeting */
-    private String title;
+    private String object;
 
     /** Location of meeting */
     private String location;
@@ -21,15 +21,15 @@ public class Meeting implements Serializable {
     /** date of meeting */
     private Date date;
 
-    /** Organizer's name */
-    private String organizer;
+    /** Participant's mail */
+    private String participants;
 
-    public Meeting(long id, String title, String location, Date date, String organizer) {
+    public Meeting(long id, String object, String location, Date date, String participants) {
         this.id = id;
-        this.title = title;
+        this.object = object;
         this.location = location;
         this.date = date;
-        this.organizer = organizer;
+        this.participants = participants;
     }
 
     public long getId() {
@@ -40,12 +40,12 @@ public class Meeting implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getObject() {
+        return object;
     }
 
-    public void setTitle(String object) {
-        this.title = object;
+    public void setObject(String object) {
+        this.object = object;
     }
 
     public String getLocation() {
@@ -64,11 +64,11 @@ public class Meeting implements Serializable {
         this.date = date;
     }
 
-    public String getOrganizer() {
-        return organizer;
+    public String getParticipants() {
+        return participants;
     }
 
-    public void setOrganizer(String organizer) {
-        this.organizer = organizer;
+    public void setParticipants(String participants) {
+        this.participants = participants;
     }
 }

@@ -6,41 +6,91 @@
     android:layout_height="match_parent"
     tools:context=".ui.meeting_list.AddMeetingActivity">
 
-    <TextView
-        android:id="@+id/tvDate"
+    <EditText
+        android:id="@+id/tvObject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="56dp"
-        android:layout_marginTop="28dp"
-        android:textSize="28dp"
-        android:hint="Select meeting's date"
+        android:layout_marginTop="40dp"
+        android:hint="Type Meeting Object"
+        android:textStyle="italic|bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+    </EditText>
 
+    <TextView
+        android:id="@+id/tvSelectRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Select the location :"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tvObject"
+        app:layout_constraintStart_toStartOf="@+id/tvObject"
+        app:layout_constraintTop_toBottomOf="@+id/tvObject">
+
+    </TextView>
+
+    <Spinner
+        android:id="@+id/sMeetingRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectRoom">
+
+    </Spinner>
+
+    <TextView
+        android:id="@+id/tvMeetingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="Select meeting date"
+        android:textStyle="italic|bold"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sMeetingRoom">
     </TextView>
 
     <TextView
-        android:id="@+id/tvHour"
+        android:id="@+id/tvMeetingHour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:hint="Select meeting's hour"
-        android:textSize="28dp"
-        app:layout_constraintStart_toStartOf="@+id/tvDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvDate">
-
+        android:layout_marginTop="40dp"
+        android:hint="Select meeting hour"
+        android:textStyle="italic|bold"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMeetingDate">
     </TextView>
 
+    <EditText
+        android:id="@+id/tvParticipants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="Type participant's mail"
+        android:textSize="20sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMeetingHour">
+
+    </EditText>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/create"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
         android:enabled="false"
         android:text="Save"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

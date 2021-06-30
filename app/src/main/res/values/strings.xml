@@ -4,7 +4,7 @@
     <string name="basket">delete_icon</string>
     
 
-    <string-array name="meetings_room">
+    <string-array name="meetings_room_array">
         <item>Room01</item>
         <item>Room02</item>
         <item>Room03</item>
