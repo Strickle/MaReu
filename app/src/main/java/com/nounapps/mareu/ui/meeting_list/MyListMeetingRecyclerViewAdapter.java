@@ -10,17 +10,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import com.nounapps.mareu.R;
 import com.nounapps.mareu.events.DeleteMeetingEvent;
 import com.nounapps.mareu.model.Meeting;
-import com.nounapps.mareu.service.MeetingApiService;
+
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -28,7 +25,6 @@ import java.util.Random;
 public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyListMeetingRecyclerViewAdapter.MyViewHolder> implements Filterable{
 
     private List<Meeting> mMeetings;
-    private MeetingApiService mMeetingApiService;
 
     public MyListMeetingRecyclerViewAdapter (List<Meeting> meetings){ mMeetings = meetings;}
 
