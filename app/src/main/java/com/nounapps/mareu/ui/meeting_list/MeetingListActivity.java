@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
+import java.util.Random;
 
 public class MeetingListActivity extends AppCompatActivity {
 
@@ -77,6 +78,7 @@ public class MeetingListActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) searchItem.getActionView();
         return true;
     }
+
     /**
      * Init the List of neighbours
      */
