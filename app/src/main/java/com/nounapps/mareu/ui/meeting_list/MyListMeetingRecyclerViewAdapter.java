@@ -40,7 +40,7 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
        Meeting meeting = mMeetings.get(position);
-//        holder.display(mMeetings.get(position));
+        holder.display(mMeetings.get(position));
 
         holder.mIBdeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
