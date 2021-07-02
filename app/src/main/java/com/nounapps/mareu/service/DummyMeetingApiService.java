@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DummyMeetingApiService implements MeetingApiService {
 
-    private final List<Meeting> meetings = DummyMeetingGenerator.getDummyMeetings();
+    private final List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
 
     @Override
     public List<Meeting> getMeetings() {
@@ -15,7 +15,8 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     @Override
     public void deleteMeeting(Meeting meeting) {
-    meetings.remove(meeting);
+        meetings.remove(meeting);
+        ;
     }
 
     @Override

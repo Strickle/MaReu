@@ -11,8 +11,11 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nounapps.mareu.R;
+import com.nounapps.mareu.events.DeleteMeetingEvent;
 import com.nounapps.mareu.model.Meeting;
 import com.nounapps.mareu.service.MeetingApiService;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,11 +27,7 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
     private List<Meeting> mMeetings;
     private MeetingApiService mMeetingApiService;
 
-
-    MyListMeetingRecyclerViewAdapter (List<Meeting> meetings){
-        this.mMeetings = meetings;
-
-    }
+    public MyListMeetingRecyclerViewAdapter (List<Meeting> meetings){ mMeetings = meetings;}
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,13 +38,14 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Meeting meeting = mMeetings.get(position);
-        holder.display(mMeetings.get(position));
+
+       Meeting meeting = mMeetings.get(position);
+//        holder.display(mMeetings.get(position));
 
         holder.mIBdeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            mMeetingApiService.deleteMeeting(meeting);
+                EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
             }
         });
     }

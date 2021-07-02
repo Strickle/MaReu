@@ -14,11 +14,14 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nounapps.mareu.R;
-import com.nounapps.mareu.databinding.ActivityAddMeetingBinding;
 import com.nounapps.mareu.databinding.ActivityListMeetingBinding;
+import com.nounapps.mareu.di.DI;
+import com.nounapps.mareu.events.DeleteMeetingEvent;
 import com.nounapps.mareu.model.Meeting;
-import com.nounapps.mareu.service.DummyMeetingGenerator;
 import com.nounapps.mareu.service.MeetingApiService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -41,6 +44,7 @@ public class MeetingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityListMeetingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        mMeetingApiService = DI.getMeetingApiService();
 
 
         binding.addMeeting.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +58,7 @@ public class MeetingListActivity extends AppCompatActivity {
 
         mRecyclerview = (RecyclerView)findViewById(R.id.rv_meeting);
 
-        mMeetings = DummyMeetingGenerator.DUMMY_MEETINGS;
+        mMeetings = mMeetingApiService.getMeetings();
 
         myAdapter = new MyListMeetingRecyclerViewAdapter(mMeetings);
 
@@ -62,10 +66,7 @@ public class MeetingListActivity extends AppCompatActivity {
         mRecyclerview.setAdapter(myAdapter);
     }
 
-//    private void initList(){
-//        mMeetings=m
 
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,6 +76,39 @@ public class MeetingListActivity extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.filter);
         SearchView searchView = (SearchView) searchItem.getActionView();
         return true;
+    }
+    /**
+     * Init the List of neighbours
+     */
+    private void initList() {
+        mMeetings = mMeetingApiService.getMeetings();
+        mRecyclerview.setAdapter(new MyListMeetingRecyclerViewAdapter(mMeetings));
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initList();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+    /**
+     * Fired if the user clicks on a delete button
+     * @param event
+     */
+    @Subscribe
+    public void onDeleteNeighbour(DeleteMeetingEvent event) {
+        mMeetingApiService.deleteMeeting(event.meeting);
+        initList();
     }
 }
