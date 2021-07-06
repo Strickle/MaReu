@@ -10,7 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaReu">
         <activity android:name=".ui.meeting_list.AddMeetingActivity"
-            android:label="Add Meeting"/>
+            android:label="Add Meeting"
+            android:parentActivityName=".ui.meeting_list.MeetingListActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.meeting_list.MeetingListActivity"/>
         <activity android:name=".ui.meeting_list.MeetingListActivity"
             android:label="Ma Réu">
             <intent-filter>
