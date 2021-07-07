@@ -7,8 +7,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.renderscript.ScriptGroup;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TimePicker;
@@ -31,6 +35,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private TimePickerDialog.OnTimeSetListener onTimeSetListener;
+    private Calendar calendar = Calendar.getInstance();
 
 
 
@@ -52,6 +57,16 @@ public class AddMeetingActivity extends AppCompatActivity {
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
+
+//// init button createMeeting
+        binding.create.setEnabled(true);
+//        if (binding.tvObject.getText() & binding.sMeetingRoom.getSelectedItem() &
+//                binding.tvMeetingHour & binding.tvMeetingDate & binding.tvParticipants != null){
+//            binding.create.setEnabled(true);
+//        }
+
+
+
         binding.tvMeetingDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +82,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                         year, month, day);
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
+                calendar.set(year,month,day);
             }
         });
         binding.tvMeetingHour.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +99,28 @@ public class AddMeetingActivity extends AppCompatActivity {
                         hour,minute,true);
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 timePickerDialog.show();
+                calendar.set(Calendar.HOUR,hour);
+                calendar.set(Calendar.MINUTE, minute);
+
             }
         });
+        binding.create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Meeting meeting = new Meeting(
+                        System.currentTimeMillis(),
+                        binding.tfObject.toString(),
+                        binding.sMeetingRoom.getSelectedItem().toString(),
+                        calendar.getTime(),
+                        binding.tfParticipants.toString()
+
+
+                );
+
+                mMeetingApiService.createMeeting(meeting);
+                finish();
+            }
+        });
+
     }
 }
