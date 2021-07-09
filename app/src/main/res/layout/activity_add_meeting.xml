@@ -76,20 +76,35 @@
         android:id="@+id/tvMeetingDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:hint="Select meeting date"
-        android:textStyle="italic|bold"
+        android:layout_marginTop="28dp"
+        android:text="Select meeting date :"
+        android:textStyle="bold"
         android:textSize="20sp"
+        android:textColor="#757575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sMeetingRoom">
     </TextView>
 
-    <ImageView
+    <TextView
+        android:id="@+id/tvSelectedDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_access_time_24"
+        android:text="../../.."
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvMeetingDate"
+        app:layout_constraintStart_toStartOf="@+id/tvMeetingDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvMeetingDate" />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_baseline_access_time_24"
         app:layout_constraintBottom_toBottomOf="@+id/tvMeetingHour"
         app:layout_constraintEnd_toStartOf="@+id/tvMeetingHour"
         app:layout_constraintTop_toTopOf="@+id/tvMeetingHour"
@@ -100,13 +115,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:hint="Select meeting hour"
-        android:textStyle="italic|bold"
+        android:text="Select meeting hour"
+        android:textStyle="bold"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMeetingDate">
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectedDate">
     </TextView>
+
+    <TextView
+        android:id="@+id/tvSelectedHour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..:.."
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvMeetingHour"
+        app:layout_constraintStart_toStartOf="@+id/tvMeetingHour"
+        app:layout_constraintTop_toBottomOf="@+id/tvMeetingHour" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tfParticipants"
@@ -120,7 +147,7 @@
         app:startIconDrawable="@drawable/ic_baseline_alternate_email_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMeetingHour">
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectedHour">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

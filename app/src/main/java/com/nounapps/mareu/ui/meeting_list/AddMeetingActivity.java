@@ -23,7 +23,11 @@ import com.nounapps.mareu.model.Meeting;
 import com.nounapps.mareu.service.MeetingApiService;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 
 
@@ -35,7 +39,12 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private TimePickerDialog.OnTimeSetListener onTimeSetListener;
-    private Calendar calendar = Calendar.getInstance();
+
+
+    private int meetingHour, meetingMinute;
+
+
+
 
 
 
@@ -58,34 +67,33 @@ public class AddMeetingActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
 
-//// init button createMeeting
+// init button createMeeting
         binding.create.setEnabled(true);
-//        if (binding.tvObject.getText() & binding.sMeetingRoom.getSelectedItem() &
-//                binding.tvMeetingHour & binding.tvMeetingDate & binding.tvParticipants != null){
-//            binding.create.setEnabled(true);
-//        }
 
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
 
-
-        binding.tvMeetingDate.setOnClickListener(new View.OnClickListener() {
+        binding.tvSelectedDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        AddMeetingActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        onDateSetListener,
-                        year, month, day);
-                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month=month+1;
+
+                        String meetingDate = day+"/"+month+"/"+year;
+                        binding.tvSelectedDate.setText(meetingDate);
+                    }
+                },year,month,day);
                 datePickerDialog.show();
-                calendar.set(year,month,day);
             }
         });
-        binding.tvMeetingHour.setOnClickListener(new View.OnClickListener() {
+
+
+        binding.tvSelectedHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
@@ -95,32 +103,44 @@ public class AddMeetingActivity extends AppCompatActivity {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(
                         AddMeetingActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        onTimeSetListener,
-                        hour,minute,true);
-                timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                timePickerDialog.show();
-                calendar.set(Calendar.HOUR,hour);
-                calendar.set(Calendar.MINUTE, minute);
-
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                meetingHour = hourOfDay;
+                                meetingMinute = minute;
+                                String meetingTime = meetingHour+":"+meetingMinute;
+                                SimpleDateFormat sdfHour = new SimpleDateFormat(
+                                        "HH:mm"
+                                );
+                                try {
+                                    Date date = sdfHour.parse(meetingTime);
+                                    binding.tvSelectedHour.setText(sdfHour.format(date));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, hour, minute, true);
+                    timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    timePickerDialog.updateTime(meetingHour,meetingMinute);
+                    timePickerDialog.show();
             }
         });
-        binding.create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Meeting meeting = new Meeting(
-                        System.currentTimeMillis(),
-                        binding.tfObject.toString(),
-                        binding.sMeetingRoom.getSelectedItem().toString(),
-                        calendar.getTime(),
-                        binding.tfParticipants.toString()
 
-
-                );
-
-                mMeetingApiService.createMeeting(meeting);
-                finish();
-            }
-        });
+//        binding.create.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Meeting meeting = new Meeting(
+//                        System.currentTimeMillis(),
+//                        binding.tfObject.toString(),
+//                        binding.sMeetingRoom.getSelectedItem().toString(),
+//                        calendar.getTime(),
+//                        binding.tfParticipants.toString()
+//                );
+//
+//                mMeetingApiService.createMeeting(meeting);
+//                finish();
+//            }
+//        });
 
     }
 }
