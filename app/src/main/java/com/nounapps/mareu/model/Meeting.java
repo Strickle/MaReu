@@ -1,8 +1,14 @@
 package com.nounapps.mareu.model;
 
 
+import android.content.res.Resources;
+import android.graphics.Color;
+
+import com.nounapps.mareu.R;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Model objet representing a Meeting
@@ -24,12 +30,16 @@ public class Meeting implements Serializable {
     /** Participant's mail */
     private String participants;
 
-    public Meeting(long id, String object, String location, Date date, String participants) {
+    /** Meeting's color */
+    private int meetingColor;
+
+    public Meeting(long id, String object, String location, Date date, String participants, int meetingColor) {
         this.id = id;
         this.object = object;
         this.location = location;
         this.date = date;
         this.participants = participants;
+        this.meetingColor = meetingColor;
     }
 
     public long getId() {
@@ -69,6 +79,25 @@ public class Meeting implements Serializable {
     }
 
     public void setParticipants(String participants) {
+        this.participants = participants;
+    }
+    public int getMeetingColor() {
+        return meetingColor;
+    }
+    public void setMeetingColor(int meetingColor) {
+        this.meetingColor = meetingColor;
+    }
+
+    public void setRandomColor(){
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        meetingColor = color;
+    }
+    public Meeting(long id, String object, String location, Date date, String participants) {
+        this.id = id;
+        this.object = object;
+        this.location = location;
+        this.date = date;
         this.participants = participants;
     }
 }

@@ -3,6 +3,7 @@ package com.nounapps.mareu.ui.meeting_list;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.TimePicker;
 
 import com.nounapps.mareu.R;
 import com.nounapps.mareu.databinding.ActivityAddMeetingBinding;
+import com.nounapps.mareu.di.DI;
 import com.nounapps.mareu.model.Meeting;
 import com.nounapps.mareu.service.MeetingApiService;
 
@@ -28,10 +30,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.Timer;
 
 
-public class AddMeetingActivity extends AppCompatActivity {
+public class AddMeetingActivity extends AppCompatActivity    {
 
 
     private ActivityAddMeetingBinding binding;
@@ -42,6 +45,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
     private int meetingHour, meetingMinute;
+    private String spinnerSelection;
 
 
 
@@ -54,6 +58,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mMeetingApiService = DI.getMeetingApiService();
 
 
         /** Array Adapter **/
@@ -61,11 +66,31 @@ public class AddMeetingActivity extends AppCompatActivity {
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.meetings_room_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0){
+                    binding.create.setEnabled(false);
+                    }else{
+                    binding.create.setEnabled(true);
+                }
+                spinnerSelection = parent.getItemAtPosition(position).toString();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+//        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//            }
+//        });
 
 // init button createMeeting
         binding.create.setEnabled(true);
@@ -82,12 +107,12 @@ public class AddMeetingActivity extends AppCompatActivity {
                         AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month=month+1;
+                        month = month + 1;
 
-                        String meetingDate = day+"/"+month+"/"+year;
+                        String meetingDate = day + "/" + month + "/" + year;
                         binding.tvSelectedDate.setText(meetingDate);
                     }
-                },year,month,day);
+                }, year, month, day);
                 datePickerDialog.show();
             }
         });
@@ -108,7 +133,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 meetingHour = hourOfDay;
                                 meetingMinute = minute;
-                                String meetingTime = meetingHour+":"+meetingMinute;
+                                String meetingTime = meetingHour + ":" + meetingMinute;
                                 SimpleDateFormat sdfHour = new SimpleDateFormat(
                                         "HH:mm"
                                 );
@@ -120,27 +145,29 @@ public class AddMeetingActivity extends AppCompatActivity {
                                 }
                             }
                         }, hour, minute, true);
-                    timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    timePickerDialog.updateTime(meetingHour,meetingMinute);
-                    timePickerDialog.show();
+                timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                timePickerDialog.updateTime(meetingHour, meetingMinute);
+                timePickerDialog.show();
             }
         });
 
-//        binding.create.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Meeting meeting = new Meeting(
-//                        System.currentTimeMillis(),
-//                        binding.tfObject.toString(),
-//                        binding.sMeetingRoom.getSelectedItem().toString(),
-//                        calendar.getTime(),
-//                        binding.tfParticipants.toString()
-//                );
-//
-//                mMeetingApiService.createMeeting(meeting);
-//                finish();
-//            }
-//        });
+
+
+        binding.create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Meeting meeting = new Meeting(
+                        System.currentTimeMillis(),
+                        binding.tfObject.getEditText().getText().toString(),
+                        spinnerSelection,
+                        calendar.getTime(),
+                        binding.tfParticipants.getEditText().getText().toString()
+                );
+                mMeetingApiService.createMeeting(meeting);
+                finish();
+            }
+        });
 
     }
+
 }

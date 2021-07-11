@@ -5,6 +5,7 @@
     
 
     <string-array name="meetings_room_array">
+        <item>None</item>
         <item>Room01</item>
         <item>Room02</item>
         <item>Room03</item>

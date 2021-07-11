@@ -34,10 +34,12 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
         View view = layoutInflater.inflate(R.layout.activity_list_item, parent, false);
         return new MyViewHolder(view);
 
+
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
+
 
        Meeting meeting = mMeetings.get(position);
        holder.display(mMeetings.get(position));
@@ -79,17 +81,12 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
 
         void display(Meeting meeting) {
 
-            /**RandomColor**/
-            Resources res = itemView.getContext().getResources();
-            int[] androidColors = res.getIntArray(R.array.meetingColor);
-            int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
-
-
-
-
-            mTVmeeting.setText(meeting.getObject() + meeting.getDate() + meeting.getLocation());
-            mIVcolorCircle.setColorFilter(randomAndroidColor);
+            meeting.setRandomColor();
+            mIVcolorCircle.setColorFilter(meeting.getMeetingColor());
+            mTVmeeting.setText(meeting.getObject()+" "+meeting.getLocation());
+            mTVparticipants.setText(meeting.getParticipants());
         }
+
     }
 
 }
