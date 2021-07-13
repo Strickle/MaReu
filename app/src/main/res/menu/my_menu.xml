@@ -19,7 +19,12 @@
                 android:icon="@drawable/ic_baseline_sort_24"
                 app:showAsAction="ifRoom|collapseActionView"
                 app:actionViewClass="androidx.appcompat.widget.SearchView" />
-
+            <item
+                android:id="@+id/reseteDateFilter"
+                android:title="Reset Date Filter"
+                android:icon="@drawable/ic_baseline_sort_24"
+                app:showAsAction="ifRoom|collapseActionView"
+                app:actionViewClass="androidx.appcompat.widget.SearchView" />
         </menu>
     </item>
 
