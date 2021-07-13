@@ -33,13 +33,13 @@ public class Meeting implements Serializable {
     /** Meeting's color */
     private int meetingColor;
 
-    public Meeting(long id, String object, String location, Date date, String participants, int meetingColor) {
+    public Meeting(long id, String object, String location, Date date, String participants) {
         this.id = id;
         this.object = object;
         this.location = location;
         this.date = date;
         this.participants = participants;
-        this.meetingColor = meetingColor;
+        setRandomColor();
     }
 
     public long getId() {
@@ -92,12 +92,5 @@ public class Meeting implements Serializable {
         Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
         meetingColor = color;
-    }
-    public Meeting(long id, String object, String location, Date date, String participants) {
-        this.id = id;
-        this.object = object;
-        this.location = location;
-        this.date = date;
-        this.participants = participants;
     }
 }

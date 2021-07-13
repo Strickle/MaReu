@@ -3,17 +3,12 @@ package com.nounapps.mareu.ui.meeting_list;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TimePicker;
@@ -24,18 +19,12 @@ import com.nounapps.mareu.di.DI;
 import com.nounapps.mareu.model.Meeting;
 import com.nounapps.mareu.service.MeetingApiService;
 
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
-import java.util.Timer;
-
 
 public class AddMeetingActivity extends AppCompatActivity    {
-
 
     private ActivityAddMeetingBinding binding;
     private MeetingApiService mMeetingApiService;
@@ -43,14 +32,10 @@ public class AddMeetingActivity extends AppCompatActivity    {
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private TimePickerDialog.OnTimeSetListener onTimeSetListener;
 
-
     private int meetingHour, meetingMinute;
     private String spinnerSelection;
 
-
-
-
-
+    private Calendar globalCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,21 +63,11 @@ public class AddMeetingActivity extends AppCompatActivity    {
                 }
                 spinnerSelection = parent.getItemAtPosition(position).toString();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
-//        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//            }
-//        });
-
-// init button createMeeting
         binding.create.setEnabled(true);
 
         Calendar calendar = Calendar.getInstance();
@@ -107,6 +82,7 @@ public class AddMeetingActivity extends AppCompatActivity    {
                         AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
+                        globalCalendar.set(year,month,day);
                         month = month + 1;
 
                         String meetingDate = day + "/" + month + "/" + year;
@@ -116,7 +92,6 @@ public class AddMeetingActivity extends AppCompatActivity    {
                 datePickerDialog.show();
             }
         });
-
 
         binding.tvSelectedHour.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +106,8 @@ public class AddMeetingActivity extends AppCompatActivity    {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                globalCalendar.set(Calendar.HOUR, hourOfDay);
+                                globalCalendar.set(Calendar.MINUTE, minute);
                                 meetingHour = hourOfDay;
                                 meetingMinute = minute;
                                 String meetingTime = meetingHour + ":" + meetingMinute;
@@ -151,8 +128,6 @@ public class AddMeetingActivity extends AppCompatActivity    {
             }
         });
 
-
-
         binding.create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,14 +135,12 @@ public class AddMeetingActivity extends AppCompatActivity    {
                         System.currentTimeMillis(),
                         binding.tfObject.getEditText().getText().toString(),
                         spinnerSelection,
-                        calendar.getTime(),
+                        globalCalendar.getTime(),
                         binding.tfParticipants.getEditText().getText().toString()
                 );
                 mMeetingApiService.createMeeting(meeting);
                 finish();
             }
         });
-
     }
-
 }

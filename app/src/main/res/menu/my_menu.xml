@@ -5,6 +5,22 @@
         android:id="@+id/filter"
         android:title="Filter"
         android:icon="@drawable/ic_baseline_filter_list_24"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+        app:showAsAction="ifRoom|collapseActionView">
+        <menu>
+            <item
+                android:id="@+id/meetingNameFilter"
+                android:title="Name Filter"
+                android:icon="@drawable/ic_baseline_search_24"
+                app:showAsAction="ifRoom|collapseActionView"
+                app:actionViewClass="androidx.appcompat.widget.SearchView" />
+            <item
+                android:id="@+id/meetingDateFilter"
+                android:title="Date Filter"
+                android:icon="@drawable/ic_baseline_sort_24"
+                app:showAsAction="ifRoom|collapseActionView"
+                app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
+        </menu>
+    </item>
+
     </menu>

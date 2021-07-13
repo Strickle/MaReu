@@ -1,6 +1,5 @@
 package com.nounapps.mareu.ui.meeting_list;
 
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,17 @@ import com.nounapps.mareu.R;
 import com.nounapps.mareu.events.DeleteMeetingEvent;
 import com.nounapps.mareu.model.Meeting;
 
-
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
-
 
 public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyListMeetingRecyclerViewAdapter.MyViewHolder> implements Filterable{
+
 
     private List<Meeting> mMeetings;
 
@@ -81,9 +83,17 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
 
         void display(Meeting meeting) {
 
-            meeting.setRandomColor();
+            Date date = meeting.getDate();
+            //
+            // Display a date in day, month, year format
+            //
+            DateFormat formatter = new SimpleDateFormat("hh:mm");
+            String meetingTime = formatter.format(date);
+
+
+
             mIVcolorCircle.setColorFilter(meeting.getMeetingColor());
-            mTVmeeting.setText(meeting.getObject()+" "+meeting.getLocation());
+            mTVmeeting.setText(meeting.getObject()+" - "+meetingTime+" - "+meeting.getLocation());
             mTVparticipants.setText(meeting.getParticipants());
         }
 

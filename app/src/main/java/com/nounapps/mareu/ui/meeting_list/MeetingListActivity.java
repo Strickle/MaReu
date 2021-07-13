@@ -1,10 +1,12 @@
 package com.nounapps.mareu.ui.meeting_list;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -74,10 +76,11 @@ public class MeetingListActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.my_menu,menu);
 
-        MenuItem searchItem = menu.findItem(R.id.filter);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+
+
         return true;
     }
+
 
     /**
      * Init the List of neighbours
