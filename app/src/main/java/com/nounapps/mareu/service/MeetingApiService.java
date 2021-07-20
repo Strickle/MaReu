@@ -2,6 +2,8 @@ package com.nounapps.mareu.service;
 
 import com.nounapps.mareu.model.Meeting;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public interface MeetingApiService {
@@ -11,6 +13,8 @@ public interface MeetingApiService {
      * @return {@link List}
      */
     List<Meeting> getMeetings();
+
+    List<Meeting> getFilteredMeeting(String filterableString);
 
 
     /**
@@ -25,4 +29,5 @@ public interface MeetingApiService {
      */
     void createMeeting(Meeting meeting);
 
+    ArrayList<Meeting> getMailsFilteredByDate(Date date);
 }

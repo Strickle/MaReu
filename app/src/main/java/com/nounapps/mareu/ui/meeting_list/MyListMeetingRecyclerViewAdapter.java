@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyListMeetingRecyclerViewAdapter.MyViewHolder> implements Filterable{
+public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyListMeetingRecyclerViewAdapter.MyViewHolder>{
 
 
     private List<Meeting> mMeetings;
@@ -57,11 +57,6 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
     @Override
     public int getItemCount() {
         return mMeetings.size();
-    }
-
-    @Override
-    public Filter getFilter() {
-        return null;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
