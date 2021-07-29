@@ -6,16 +6,16 @@
 
     <string-array name="meetings_room_array">
         <item>None</item>
-        <item>Room01</item>
-        <item>Room02</item>
-        <item>Room03</item>
-        <item>Room04</item>
-        <item>Room05</item>
-        <item>Room06</item>
-        <item>Room07</item>
-        <item>Room08</item>
-        <item>Room09</item>
-        <item>Room10</item>
+        <item>Peach</item>
+        <item>Mario</item>
+        <item>Luigi</item>
+        <item>Toad</item>
+        <item>Koopa</item>
+        <item>Didi</item>
+        <item>Kong</item>
+        <item>Dixy</item>
+        <item>Wario</item>
+        <item>Zelda</item>
     </string-array>
 
 </resources>

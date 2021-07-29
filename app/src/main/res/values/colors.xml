@@ -8,31 +8,4 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="redAdd">#CE0A24</color>
-
-
-
-    <item name="pastel01" type="color">#EDD9D0</item>
-    <item name="pastel02" type="color">#AECEB8</item>
-    <item name="pastel03" type="color">#E68A9F</item>
-    <item name="pastel04" type="color">#B78FCD</item>
-    <item name="pastel05" type="color">#A1CFE6</item>
-    <item name="pastel06" type="color">#E7B88A</item>
-    <item name="pastel07" type="color">#E6DDA2</item>
-    <item name="pastel08" type="color">#A8CC8F</item>
-    <item name="pastel09" type="color">#B3957D</item>
-
-
-
-    <integer-array name="meetingColor">
-        <item>@color/pastel01</item>
-        <item>@color/pastel02</item>
-        <item>@color/pastel03</item>
-        <item>@color/pastel04</item>
-        <item>@color/pastel05</item>
-        <item>@color/pastel06</item>
-        <item>@color/pastel07</item>
-        <item>@color/pastel08</item>
-        <item>@color/pastel09</item>
-    </integer-array>
-
 </resources>

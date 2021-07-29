@@ -19,7 +19,7 @@ public interface MeetingApiService {
 
     /**
      * Delete a meeting
-     * @param meeting
+     * @param  meeting
      */
     void deleteMeeting(Meeting meeting);
 
@@ -29,5 +29,5 @@ public interface MeetingApiService {
      */
     void createMeeting(Meeting meeting);
 
-    ArrayList<Meeting> getMailsFilteredByDate(Date date);
+    ArrayList<Meeting> getMeetingFilteredByDate(Date date);
 }

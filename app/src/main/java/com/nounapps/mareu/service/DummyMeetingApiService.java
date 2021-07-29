@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Filter;
 
+/**
+ * Dummy mock for the Api
+ */
 public class DummyMeetingApiService implements MeetingApiService {
 
     private final List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
-    Meeting mMeeting;
 
     @Override
     public List<Meeting> getMeetings() {
@@ -29,20 +30,28 @@ public class DummyMeetingApiService implements MeetingApiService {
         }return filteredMeeting;
     }
 
+    /**
+     *
+     * @param meeting
+     */
     @Override
     public void deleteMeeting(Meeting meeting) {
         meetings.remove(meeting);
         ;
     }
 
+    /**
+     *
+     * @param meeting
+     */
     @Override
     public void createMeeting(Meeting meeting) {
         meetings.add(meeting);
-
     }
 
+
     @Override
-    public ArrayList<Meeting> getMailsFilteredByDate(Date date) {
+    public ArrayList<Meeting> getMeetingFilteredByDate(Date date) {
         ArrayList<Meeting> result = new ArrayList<>();
 
         Calendar cal1 = Calendar.getInstance();
