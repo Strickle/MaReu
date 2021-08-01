@@ -37,14 +37,15 @@ public void setUp(){service = DI.getNewInstanceApiService();}
         meetings.add(new Meeting(2,"Reunion F","Koopa",new Date(1659960000000L),"example@example.com"));
         List<Meeting> filteredMeetingList = new ArrayList<>();
         filteredMeetingList.addAll(service.getFilteredMeeting("Wario"));
-        boolean goodLocation = false;
+        boolean goodLocation = true;
+        int i = 0;
         for (Meeting m : filteredMeetingList) {
-            if (m.getLocation().equals("Wario")) {
-                goodLocation = true;
-            }
+            goodLocation = goodLocation && m.equals(meetings.get(i));
+            i++;
         }
         assertTrue(goodLocation);
-    }
+        }
+
 
 
 
@@ -71,13 +72,14 @@ public void setUp(){service = DI.getNewInstanceApiService();}
         meetings.add(new Meeting(2,"Reunion F","Koopa",new Date(1659960000000L),"example@example.com"));
         List<Meeting> result = new ArrayList<>();
         Date dateFilter= new Date();
-        dateFilter.setTime(1659960000000L);
+        long selectedDateFilter = 1659960000000L;
+        dateFilter.setTime(selectedDateFilter);
         result.addAll(service.getMeetingFilteredByDate(dateFilter));
-        boolean sameDate = false;
+        boolean sameDate = true;
+        int i = 2;
         for (Meeting m : result) {
-            if (m.getDate().getTime() == 1659960000000L) {
-                sameDate = true;
-            }
+            sameDate = sameDate && m.equals(meetings.get(i));
+            i++;
         }
         assertTrue(sameDate);
     }
