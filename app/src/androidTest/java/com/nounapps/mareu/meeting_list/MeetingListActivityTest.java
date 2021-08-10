@@ -97,7 +97,6 @@ public class MeetingListActivityTest {
      */
     @Test
     public void meetingListActivityTest_meeting_shouldBeAdd() {
-        //Number of meeting created is 2
         //click on Add button
         ViewInteraction floatingActionButton = onView(withId(R.id.add_meeting));
         floatingActionButton.perform(click());
