@@ -19,6 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tfObjectInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
@@ -149,6 +150,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSelectedHour">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tfParticipantsInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"

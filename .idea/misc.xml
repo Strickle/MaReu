@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AndroidWork/OpenClassRooms Projets/Projet 4/CodeApp/app/src/main/res/layout/activity_add_meeting.xml" value="0.15353260869565216" />
+        <entry key="..\:/AndroidWork/OpenClassRooms Projets/Projet 4/CodeApp/app/src/main/res/layout/activity_list_item.xml" value="0.1" />
+        <entry key="..\:/AndroidWork/OpenClassRooms Projets/Projet 4/CodeApp/app/src/main/res/menu/my_menu.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="org.jetbrains.annotations.Nullable" />
     <option name="myDefaultNotNull" value="androidx.annotation.NonNull" />
