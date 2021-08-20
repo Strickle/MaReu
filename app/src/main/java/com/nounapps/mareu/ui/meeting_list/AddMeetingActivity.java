@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 import com.nounapps.mareu.R;
@@ -44,29 +45,34 @@ public class AddMeetingActivity extends AppCompatActivity    {
         setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         mMeetingApiService = DI.getMeetingApiService();
-        binding.create.setEnabled(false);
+        binding.create.setEnabled(true);
+        selectRoom();
+        selectDate();
+        selectHour();
+        createMeeting();
+    }
 
 
-
-        Spinner spinner = findViewById(R.id.sMeetingRoom);
+    private void selectRoom() {
+            Spinner spinner = findViewById(R.id.sMeetingRoom);
 // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.meetings_room_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                binding.create.setEnabled(position != 0);
-                spinnerSelection = parent.getItemAtPosition(position).toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.meetings_room_array, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    spinnerSelection = parent.getItemAtPosition(position).toString();
+                }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        }
 
-
+    private void selectDate() {
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH);
@@ -75,15 +81,17 @@ public class AddMeetingActivity extends AppCompatActivity    {
         binding.tvSelectedDate.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     AddMeetingActivity.this, (view, year1, month1, day1) -> {
-                        globalCalendar.set(year1, month1, day1);
-                        month1 = month1 + 1;
+                globalCalendar.set(year1, month1, day1);
+                month1 = month1 + 1;
 
-                        String meetingDate = day1 + "/" + month1 + "/" + year1;
-                        binding.tvSelectedDate.setText(meetingDate);
-                    }, year, month, day);
+                String meetingDate = day1 + "/" + month1 + "/" + year1;
+                binding.tvSelectedDate.setText(meetingDate);
+            }, year, month, day);
             datePickerDialog.show();
         });
+    }
 
+    private void selectHour() {
         binding.tvSelectedHour.setOnClickListener(v -> {
             Calendar cal = Calendar.getInstance();
             int hour = cal.get(Calendar.HOUR);
@@ -98,14 +106,10 @@ public class AddMeetingActivity extends AppCompatActivity    {
                         meetingHour = hourOfDay;
                         meetingMinute = minute1;
                         String meetingTime = meetingHour + ":" + meetingMinute;
-                        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdfHour = new SimpleDateFormat(
-                                "HH:mm"
-                        );
+                        SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
                         try {
                             Date date = sdfHour.parse(meetingTime);
-                            assert date != null;
                             binding.tvSelectedHour.setText(sdfHour.format(date));
-
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -114,8 +118,23 @@ public class AddMeetingActivity extends AppCompatActivity    {
             timePickerDialog.updateTime(meetingHour, meetingMinute);
             timePickerDialog.show();
         });
+    }
+    private void emptyMeetingMessage(){
+        Toast.makeText(this, "Please fill in the empty fields", Toast.LENGTH_SHORT).show();
+    }
 
+    public void formatGlobalCalendar(){}
+
+    public void createMeeting(){
         binding.create.setOnClickListener(v -> {
+            if (binding.tfObject.getEditText().getText().toString().matches("")||
+            binding.tfParticipants.getEditText().getText().toString().matches("")||
+                    spinnerSelection.matches("None")||
+                    binding.tvSelectedDate.getText().toString().matches("../../..")
+                    || binding.tvSelectedHour.getText().toString().matches(".. : ..")
+            ){
+               emptyMeetingMessage();
+            }else{
             Meeting meeting = new Meeting(
                     System.currentTimeMillis(),
                     Objects.requireNonNull(binding.tfObject.getEditText()).getText().toString(),
@@ -125,6 +144,7 @@ public class AddMeetingActivity extends AppCompatActivity    {
             );
             mMeetingApiService.createMeeting(meeting);
             finish();
+        };
         });
     }
 }

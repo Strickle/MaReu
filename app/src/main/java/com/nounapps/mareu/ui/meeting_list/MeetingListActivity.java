@@ -116,7 +116,7 @@ public class MeetingListActivity extends AppCompatActivity {
     private void resetFilter() {
         mMeetings.clear();
         mMeetings.addAll(mMeetingApiService.getMeetings());
-        Objects.requireNonNull(binding.rvMeeting.getAdapter()).notifyDataSetChanged();
+        binding.rvMeeting.getAdapter().notifyDataSetChanged();
     }
 
     private void dateDialog() {
@@ -130,7 +130,7 @@ public class MeetingListActivity extends AppCompatActivity {
             cal.set(i, i1, i2);
             mMeetings.clear();
             mMeetings.addAll(mMeetingApiService.getMeetingFilteredByDate(cal.getTime()));
-            Objects.requireNonNull(binding.rvMeeting.getAdapter()).notifyDataSetChanged();
+            binding.rvMeeting.getAdapter().notifyDataSetChanged();
         };
 
         // Create DatePickerDialog (Spinner Mode):

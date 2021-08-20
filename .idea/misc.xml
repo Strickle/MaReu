@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AndroidWork/OpenClassRooms Projets/Projet 4/CodeApp/app/src/main/res/layout/activity_add_meeting.xml" value="0.15353260869565216" />
+        <entry key="..\:/AndroidWork/OpenClassRooms Projets/Projet 4/CodeApp/app/src/main/res/layout/activity_add_meeting.xml" value="0.4" />
         <entry key="..\:/AndroidWork/OpenClassRooms Projets/Projet 4/CodeApp/app/src/main/res/layout/activity_list_item.xml" value="0.1" />
+        <entry key="..\:/AndroidWork/OpenClassRooms Projets/Projet 4/CodeApp/app/src/main/res/layout/activity_list_meeting.xml" value="0.14402173913043478" />
         <entry key="..\:/AndroidWork/OpenClassRooms Projets/Projet 4/CodeApp/app/src/main/res/menu/my_menu.xml" value="0.1" />
       </map>
     </option>

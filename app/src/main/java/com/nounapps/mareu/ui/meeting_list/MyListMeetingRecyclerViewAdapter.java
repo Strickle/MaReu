@@ -73,10 +73,7 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
         void display(Meeting meeting) {
 
             Date date = meeting.getDate();
-            //
-            // Display a date in day, month, year format
-            //
-            DateFormat formatter = new SimpleDateFormat("hh:mm");
+            DateFormat formatter = new SimpleDateFormat("HH:mm");
             String meetingTime = formatter.format(date);
 
 
