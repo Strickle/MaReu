@@ -41,11 +41,10 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-
+        holder.display(mMeetings.get(position));
        Meeting meeting = mMeetings.get(position);
-       holder.display(mMeetings.get(position));
+       holder.mIBdeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteMeetingEvent(meeting)));
 
-        holder.mIBdeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteMeetingEvent(meeting)));
     }
 
     @Override
@@ -72,8 +71,10 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
 
         void display(Meeting meeting) {
 
+
+
             Date date = meeting.getDate();
-            DateFormat formatter = new SimpleDateFormat("HH:mm");
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yy, HH:mm");
             String meetingTime = formatter.format(date);
 
 
@@ -84,6 +85,5 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
         }
 
     }
-
 }
 

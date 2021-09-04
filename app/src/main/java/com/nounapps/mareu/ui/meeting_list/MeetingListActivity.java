@@ -87,7 +87,7 @@ public class MeetingListActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 mMeetings.clear();
                 mMeetings.addAll(mMeetingApiService.getFilteredMeeting(newText));
-                Objects.requireNonNull(binding.rvMeeting.getAdapter()).notifyDataSetChanged();
+                binding.rvMeeting.getAdapter().notifyDataSetChanged();
                 return false;
             }
         });

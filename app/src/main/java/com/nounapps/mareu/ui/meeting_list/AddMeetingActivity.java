@@ -1,6 +1,7 @@
 package com.nounapps.mareu.ui.meeting_list;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -8,6 +9,7 @@ import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +25,7 @@ import com.nounapps.mareu.service.MeetingApiService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -31,11 +34,13 @@ public class AddMeetingActivity extends AppCompatActivity    {
 
     private ActivityAddMeetingBinding binding;
     private MeetingApiService mMeetingApiService;
+    private RecyclerView.Adapter adapter;
 
     private int meetingHour, meetingMinute;
     private String spinnerSelection;
 
-    private final Calendar globalCalendar = Calendar.getInstance();
+    private Calendar globalCalendar = Calendar.getInstance();
+
 
 
     @Override
@@ -123,28 +128,49 @@ public class AddMeetingActivity extends AppCompatActivity    {
         Toast.makeText(this, "Please fill in the empty fields", Toast.LENGTH_SHORT).show();
     }
 
-    public void formatGlobalCalendar(){}
+
+    public void formatGlobalCalendar(){
+
+
+    }
 
     public void createMeeting(){
         binding.create.setOnClickListener(v -> {
-            if (binding.tfObject.getEditText().getText().toString().matches("")||
-            binding.tfParticipants.getEditText().getText().toString().matches("")||
-                    spinnerSelection.matches("None")||
-                    binding.tvSelectedDate.getText().toString().matches("../../..")
-                    || binding.tvSelectedHour.getText().toString().matches(".. : ..")
-            ){
-               emptyMeetingMessage();
-            }else{
-            Meeting meeting = new Meeting(
-                    System.currentTimeMillis(),
-                    Objects.requireNonNull(binding.tfObject.getEditText()).getText().toString(),
-                    spinnerSelection,
-                    globalCalendar.getTime(),
-                    Objects.requireNonNull(binding.tfParticipants.getEditText()).getText().toString()
-            );
-            mMeetingApiService.createMeeting(meeting);
+
+            String objet = binding.tfObject.getEditText().getText().toString();
+            String location = spinnerSelection;
+            Date meetingDate = globalCalendar.getTime();
+            String participant = binding.tfParticipants.getEditText().getText().toString();
+
+            if (objet.isEmpty()) {
+                binding.tfObject.setError("Please type an object");
+                return;
+            }
+
+            if (location.matches("None")){
+                Toast.makeText(this, "Please choose a location", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (binding.tvSelectedDate.getText().toString().matches("../../..")){
+                Toast.makeText(this, "Please choose a date", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (binding.tvSelectedHour.getText().toString().matches(".. : ..")){
+                Toast.makeText(this, "Please choose a hour", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (participant.isEmpty()) {
+                binding.tfParticipants.setError("Please type a participant");
+                return;
+            }
+
+            mMeetingApiService.createMeeting(new Meeting(0,objet,location,meetingDate,participant));
+            Toast.makeText(this, "Meeting created !", Toast.LENGTH_SHORT).show();
             finish();
-        };
         });
     }
 }
+
