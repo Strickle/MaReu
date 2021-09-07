@@ -3,6 +3,7 @@ package com.nounapps.mareu.ui.meeting_list;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,10 +38,11 @@ public class MeetingListActivity extends AppCompatActivity {
 
 
     private ActivityListMeetingBinding binding;
-
     private MeetingApiService mMeetingApiService;
     private RecyclerView mRecyclerview;
     private List<Meeting> mMeetings = new ArrayList<>();
+    private DividerItemDecoration mDividerItemDecoration;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,24 +50,28 @@ public class MeetingListActivity extends AppCompatActivity {
         binding = ActivityListMeetingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         mMeetingApiService = DI.getMeetingApiService();
+        initMyListMeetingRecyclerView();
+        initData();
+        setButtonAddMeeting();
+    }
 
-
-        binding.addMeeting.setOnClickListener(v -> {
-            Intent intent = new Intent(MeetingListActivity.this, AddMeetingActivity.class);
-            startActivity(intent);
-
-        });
-
+    private void initMyListMeetingRecyclerView(){
         mRecyclerview = findViewById(R.id.rv_meeting);
-
-        mMeetings = new ArrayList<>(mMeetingApiService.getMeetings());
-
         MyListMeetingRecyclerViewAdapter myAdapter = new MyListMeetingRecyclerViewAdapter(mMeetings);
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerview.setAdapter(myAdapter);
+    }
 
+    private void initData(){
+        mMeetings = new ArrayList<>(mMeetingApiService.getMeetings());
+    }
 
+    private void setButtonAddMeeting(){
+        binding.addMeeting.setOnClickListener(v -> {
+            Intent intent = new Intent(MeetingListActivity.this, AddMeetingActivity.class);
+            startActivity(intent);
+        });
     }
 
 
@@ -91,13 +97,9 @@ public class MeetingListActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
         return true;
     }
 
-    @SuppressLint("NonConstantResourceId")
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.meetingNameFilter:
@@ -124,7 +126,6 @@ public class MeetingListActivity extends AppCompatActivity {
         int selectedMonth = 6;
         int selectedDayOfMonth = 16;
 
-// Date Select Listener.
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, i, i1, i2) -> {
             Calendar cal = Calendar.getInstance();
             cal.set(i, i1, i2);
@@ -132,12 +133,9 @@ public class MeetingListActivity extends AppCompatActivity {
             mMeetings.addAll(mMeetingApiService.getMeetingFilteredByDate(cal.getTime()));
             binding.rvMeeting.getAdapter().notifyDataSetChanged();
         };
-
-        // Create DatePickerDialog (Spinner Mode):
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 dateSetListener, selectedYear, selectedMonth, selectedDayOfMonth);
 
-// Show
         datePickerDialog.show();
     }
 

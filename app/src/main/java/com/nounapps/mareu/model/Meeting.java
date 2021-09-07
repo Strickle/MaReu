@@ -1,11 +1,7 @@
 package com.nounapps.mareu.model;
 
 
-import android.content.res.Resources;
 import android.graphics.Color;
-
-import com.nounapps.mareu.R;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Random;
@@ -14,6 +10,16 @@ import java.util.Random;
  * Model objet representing a Meeting
  */
 public class Meeting implements Serializable {
+    public Meeting(String object, String location, Date startDate, int meetingDuration, String participants) {
+        this.id = System.currentTimeMillis();
+        this.object = object;
+        this.location = location;
+        this.startDate = startDate;
+        this.meetingDuration = meetingDuration;
+        this.participants = participants;
+        setRandomColor();
+
+    }
 
     /** Identifier */
     private long id;
@@ -24,8 +30,11 @@ public class Meeting implements Serializable {
     /** Location of meeting */
     private String location;
 
-    /** date of meeting */
-    private Date date;
+    /** date of meeting begin */
+    private Date startDate;
+
+    /** date of meeting finish */
+    private int meetingDuration;
 
     /** Participant's mail */
     private String participants;
@@ -33,14 +42,17 @@ public class Meeting implements Serializable {
     /** Meeting's color */
     private int meetingColor;
 
-    public Meeting(long id, String object, String location, Date date, String participants) {
+    public Meeting(long id, String object, String location, Date startDate, int meetingDuration, String participants) {
         this.id = id;
         this.object = object;
         this.location = location;
-        this.date = date;
+        this.startDate = startDate;
+        this.meetingDuration = meetingDuration;
         this.participants = participants;
         setRandomColor();
     }
+
+
 
     public long getId() {
         return id;
@@ -66,13 +78,17 @@ public class Meeting implements Serializable {
         this.location = location;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
+
+    public int getMeetingDuration() { return meetingDuration; }
+
+    public void setMeetingDuration(int meetingDuration) { this.meetingDuration = meetingDuration; }
 
     public String getParticipants() {
         return participants;
@@ -81,9 +97,11 @@ public class Meeting implements Serializable {
     public void setParticipants(String participants) {
         this.participants = participants;
     }
+
     public int getMeetingColor() {
         return meetingColor;
     }
+
     public void setMeetingColor(int meetingColor) {
         this.meetingColor = meetingColor;
     }

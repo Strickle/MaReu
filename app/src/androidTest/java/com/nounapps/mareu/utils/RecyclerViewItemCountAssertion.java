@@ -2,6 +2,7 @@ package com.nounapps.mareu.utils;
 
 import android.view.View;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.ViewAssertion;
@@ -11,6 +12,8 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 
 public class RecyclerViewItemCountAssertion implements ViewAssertion {
+
+
     private final Matcher<Integer> matcher;
 
     public static RecyclerViewItemCountAssertion withItemCount(int expectedCount) {
@@ -24,6 +27,7 @@ public class RecyclerViewItemCountAssertion implements ViewAssertion {
     private RecyclerViewItemCountAssertion(Matcher<Integer> matcher) {
         this.matcher = matcher;
     }
+
 
     @Override
     public void check(View view, NoMatchingViewException noViewFoundException) {

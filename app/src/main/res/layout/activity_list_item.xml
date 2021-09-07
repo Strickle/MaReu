@@ -15,6 +15,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/purple_500" />
 
+    <TextView
+        android:id="@+id/tv_meetingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:maxLines="1"
+        android:text="12/11/2021"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_meeting"
+        app:layout_constraintStart_toEndOf="@id/item_list_color_circle"/>
 
     <TextView
         android:id="@+id/tv_meeting"
@@ -39,7 +51,7 @@
         android:maxLines="1"
         android:text="maxime@lamzone.com, alex@lamzon.com"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/item_list_delete_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/item_list_delete_button"
         app:layout_constraintStart_toEndOf="@id/item_list_color_circle"
         app:layout_constraintTop_toBottomOf="@id/tv_meeting" />
@@ -58,6 +70,14 @@
         app:layout_constraintTop_toTopOf="@+id/item_list_color_circle"
         app:srcCompat="@drawable/ic_baseline_delete_24"
         app:tint="#3F445E" />
+
+    <View android:id="@+id/tile_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/tv_participants"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

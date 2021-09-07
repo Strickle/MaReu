@@ -7,176 +7,207 @@
     android:layout_height="match_parent"
     tools:context=".ui.meeting_list.AddMeetingActivity">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tfObject"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginHorizontal="40dp"
-        android:hint="Type Meeting Object"
-        android:textStyle="italic|bold"
-        app:startIconDrawable="@drawable/ic_baseline_filter_center_focus_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tfObjectInput"
+        android:layout_height="match_parent">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfObject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:lines="1"
-            android:singleLine="true"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="40dp"
+            android:hint="Type Meeting Object"
+            android:textStyle="italic|bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_baseline_filter_center_focus_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tfObjectInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <ImageView
-        android:id="@+id/ivLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_baseline_location_on_24"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSelectRoom"
-        app:layout_constraintEnd_toStartOf="@+id/tvSelectRoom"
-        app:layout_constraintTop_toTopOf="@+id/tvSelectRoom"
-        app:tint="#757575">
-    </ImageView>
+        <ImageView
+            android:id="@+id/ivLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_baseline_location_on_24"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSelectRoom"
+            app:layout_constraintEnd_toStartOf="@+id/tvSelectRoom"
+            app:layout_constraintTop_toTopOf="@+id/tvSelectRoom"
+            app:tint="#757575" />
 
-    <TextView
-        android:id="@+id/tvSelectRoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Select the location :"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tfObject"
-        app:layout_constraintStart_toStartOf="@+id/tfObject"
-        app:layout_constraintTop_toBottomOf="@+id/tfObject">
-    </TextView>
+        <TextView
+            android:id="@+id/tvSelectRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Select the location :"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tfObject"
+            app:layout_constraintStart_toStartOf="@+id/tfObject"
+            app:layout_constraintTop_toBottomOf="@+id/tfObject" />
 
-    <Spinner
-        android:id="@+id/sMeetingRoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectRoom">
-    </Spinner>
+        <Spinner
+            android:id="@+id/sMeetingRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSelectRoom" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_agenda_24"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvMeetingDate"
-        app:layout_constraintEnd_toStartOf="@+id/tvMeetingDate"
-        app:layout_constraintTop_toTopOf="@+id/tvMeetingDate"
-        app:tint="#757575" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_baseline_agenda_24"
+            app:layout_constraintBottom_toBottomOf="@+id/tvMeetingDate"
+            app:layout_constraintEnd_toStartOf="@+id/tvMeetingDate"
+            app:layout_constraintTop_toTopOf="@+id/tvMeetingDate"
+            app:tint="#757575" />
 
-    <TextView
-        android:id="@+id/tvMeetingDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Select meeting date :"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="#757575"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sMeetingRoom">
-    </TextView>
+        <TextView
+            android:id="@+id/tvMeetingDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="Select meeting date :"
+            android:textColor="#757575"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sMeetingRoom" />
 
-    <TextView
-        android:id="@+id/tvSelectedDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/date"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/tvMeetingDate"
-        app:layout_constraintStart_toStartOf="@+id/tvMeetingDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvMeetingDate" />
+        <TextView
+            android:id="@+id/tvSelectedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/date"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tvMeetingDate"
+            app:layout_constraintStart_toStartOf="@+id/tvMeetingDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvMeetingDate" />
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_baseline_access_time_24"
-        app:layout_constraintBottom_toBottomOf="@+id/tvMeetingHour"
-        app:layout_constraintEnd_toStartOf="@+id/tvMeetingHour"
-        app:layout_constraintTop_toTopOf="@+id/tvMeetingHour"
-        app:tint="#757575" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_baseline_access_time_24"
+            app:layout_constraintBottom_toBottomOf="@+id/tvMeetingHourStart"
+            app:layout_constraintEnd_toStartOf="@+id/tvMeetingHourStart"
+            app:layout_constraintTop_toTopOf="@+id/tvMeetingHourStart"
+            app:tint="#757575" />
 
-    <TextView
-        android:id="@+id/tvMeetingHour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Select meeting hour"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectedDate">
-    </TextView>
+        <TextView
+            android:id="@+id/tvMeetingHourStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Select meeting hour start"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSelectedDate" />
 
-    <TextView
-        android:id="@+id/tvSelectedHour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hour"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/tvMeetingHour"
-        app:layout_constraintStart_toStartOf="@+id/tvMeetingHour"
-        app:layout_constraintTop_toBottomOf="@+id/tvMeetingHour" />
+        <TextView
+            android:id="@+id/tvSelectedHourStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/hour"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tvMeetingHourStart"
+            app:layout_constraintStart_toStartOf="@+id/tvMeetingHourStart"
+            app:layout_constraintTop_toBottomOf="@+id/tvMeetingHourStart" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tfParticipants"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginHorizontal="40dp"
-        android:hint="Type participant's mail"
-        android:textSize="20sp"
-        android:textStyle="italic|bold"
-        app:startIconDrawable="@drawable/ic_baseline_alternate_email_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSelectedHour">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tfParticipantsInput"
+        <TextView
+            android:id="@+id/tvMeetingDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Select meeting duration"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSelectedHourStart" />
+
+        <Spinner
+            android:id="@+id/sDurationMeeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tv_duration"
+            app:layout_constraintStart_toStartOf="@+id/tvMeetingDuration"
+            app:layout_constraintTop_toBottomOf="@+id/tvMeetingDuration" />
+
+        <TextView
+            android:id="@+id/tv_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hour(s)"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/sDurationMeeting"
+            app:layout_constraintEnd_toEndOf="@+id/tvMeetingDuration"
+            app:layout_constraintTop_toTopOf="@+id/sDurationMeeting" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfParticipants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:lines="1"
-            android:singleLine="true"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="40dp"
+            android:hint="Type participant's mail"
+            android:textSize="20sp"
+            android:textStyle="italic|bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sDurationMeeting"
+            app:startIconDrawable="@drawable/ic_baseline_alternate_email_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tfParticipantsInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/create"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:layout_marginTop="40dp"
-        android:text="Save"
-        app:cornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tfParticipants"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/create"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:enabled="false"
+            android:text="Save"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tfParticipants" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

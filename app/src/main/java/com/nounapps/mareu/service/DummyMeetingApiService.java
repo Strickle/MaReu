@@ -58,7 +58,7 @@ public class DummyMeetingApiService implements MeetingApiService {
         cal1.setTime(date);
         for (int i = 0; i < meetings.size(); i++) {
             Calendar cal2 = Calendar.getInstance();
-            cal2.setTime(meetings.get(i).getDate());
+            cal2.setTime(meetings.get(i).getStartDate());
             boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
                     cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
             if (sameDay) result.add(meetings.get(i));

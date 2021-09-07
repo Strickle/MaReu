@@ -115,7 +115,7 @@ public class MeetingListActivityTest {
         onView(withId(android.R.id.button1)).perform(click());
 
         //We can input the time
-        onView(withId(R.id.tvSelectedHour)).perform(click());
+        onView(withId(R.id.tvSelectedHourStart)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(14, 0));
         onView(withId(android.R.id.button1)).perform(click());
 

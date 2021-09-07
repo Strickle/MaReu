@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nounapps.mareu.R;
@@ -54,6 +55,7 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
+        private final TextView mTVmeetingDate;
         private final TextView mTVmeeting;
         private final TextView mTVparticipants;
         private final ImageView mIVcolorCircle;
@@ -62,28 +64,31 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
         public MyViewHolder(View itemView) {
             super(itemView);
 
-
+            mIVcolorCircle = itemView.findViewById(R.id.item_list_color_circle);
+            mTVmeetingDate = itemView.findViewById(R.id.tv_meetingDate);
             mTVmeeting = itemView.findViewById(R.id.tv_meeting);
             mTVparticipants = itemView.findViewById(R.id.tv_participants);
-            mIVcolorCircle = itemView.findViewById(R.id.item_list_color_circle);
             mIBdeleteButton = itemView.findViewById(R.id.item_list_delete_button);
         }
 
         void display(Meeting meeting) {
 
+            Date dateStartDay = meeting.getStartDate();
+            DateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+            String meetingTime1 = formatter1.format(dateStartDay);
 
 
-            Date date = meeting.getDate();
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yy, HH:mm");
-            String meetingTime = formatter.format(date);
+            Date dateStartHour = meeting.getStartDate();
+            DateFormat formatter = new SimpleDateFormat("HH:mm");
+            String meetingTime2 = formatter.format(dateStartHour);
 
-
+            int meetingDuration = meeting.getMeetingDuration();
 
             mIVcolorCircle.setColorFilter(meeting.getMeetingColor());
-            mTVmeeting.setText(meeting.getObject()+" - "+meetingTime+" - "+meeting.getLocation());
+            mTVmeetingDate.setText(meetingTime1);
+            mTVmeeting.setText(meeting.getObject()+" - "+meetingTime2+" -> "+meetingDuration+" hour(s) - "+meeting.getLocation());
             mTVparticipants.setText(meeting.getParticipants());
         }
-
     }
 }
 
