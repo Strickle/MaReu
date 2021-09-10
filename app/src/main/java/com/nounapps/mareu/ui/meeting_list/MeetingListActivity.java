@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,18 +30,13 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
-
 
 public class MeetingListActivity extends AppCompatActivity {
-
 
     private ActivityListMeetingBinding binding;
     private MeetingApiService mMeetingApiService;
     private RecyclerView mRecyclerview;
     private List<Meeting> mMeetings = new ArrayList<>();
-    private DividerItemDecoration mDividerItemDecoration;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

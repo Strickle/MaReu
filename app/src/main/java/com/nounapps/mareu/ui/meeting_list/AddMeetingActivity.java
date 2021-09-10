@@ -8,23 +8,31 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.style.UpdateAppearance;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.chip.Chip;
 import com.nounapps.mareu.R;
 import com.nounapps.mareu.databinding.ActivityAddMeetingBinding;
 import com.nounapps.mareu.di.DI;
 import com.nounapps.mareu.model.Meeting;
+import com.nounapps.mareu.service.DummyMeetingApiService;
+import com.nounapps.mareu.service.DummyMeetingGenerator;
 import com.nounapps.mareu.service.MeetingApiService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddMeetingActivity extends AppCompatActivity    {
 
@@ -36,8 +44,12 @@ public class AddMeetingActivity extends AppCompatActivity    {
     private int hourSelection;
 
     private Calendar globalCalendar = Calendar.getInstance();
-    private Calendar endMeetingCalendar = Calendar.getInstance();
-
+    private String[] addMails;
+    private String objet;
+    private String location ;
+    private Date meetingStartDate;
+    private int meetingDuration;
+    private String[] participant;
 
 
     @Override
@@ -47,11 +59,13 @@ public class AddMeetingActivity extends AppCompatActivity    {
         setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         mMeetingApiService = DI.getMeetingApiService();
+        binding.mbAddMailButton.setEnabled(true);
         binding.create.setEnabled(true);
         selectRoom();
         selectDate();
         selectStartHour();
         selectMeetingDuration();
+        addMailTag();
         createMeeting();
     }
 
@@ -134,50 +148,88 @@ public class AddMeetingActivity extends AppCompatActivity    {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
+    }
+    public void addMailTag(){
+        binding.mbAddMailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.tfParticipants.getEditText().getText().toString().isEmpty()) {
+                    binding.tfParticipants.setError("Please type a participant");
+                } else {
 
+
+                addMails = binding.tfParticipants.getEditText().getText().toString().split(" ");
+                LayoutInflater participantsInflater = LayoutInflater.from(AddMeetingActivity.this);
+                for (String text : addMails) {
+                    Chip chipMail = (Chip) participantsInflater.inflate(R.layout.chip_mail_item, null, false);
+                    chipMail.setText(text);
+                    chipMail.setOnCloseIconClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            binding.cgMail.removeView(v);
+                        }
+                    });
+                    binding.cgMail.addView(chipMail);
+                }
+            }
+            }
+        });
     }
 
+    public boolean checkMeetingIsComplete(){
+        if (objet.isEmpty()) {
+            binding.tfObject.setError("Please type an object");
+            return false;
+        }
+        if (location.matches("None")){
+            Toast.makeText(this, "Please choose a location", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (binding.tvSelectedDate.getText().toString().matches("../../..")){
+            Toast.makeText(this, "Please choose a date", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (binding.tvSelectedHourStart.getText().toString().matches(".. : ..")){
+            Toast.makeText(this, "Please choose a hour", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (hourSelection == 0){
+            Toast.makeText(this, "Please choose a duration", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (Arrays.toString(participant).contains("null")) {
+            binding.tfParticipants.setError("Please type a participant");
+            return false;
+        }
+        return true;
+
+    }
     public void createMeeting(){
         binding.create.setOnClickListener(v -> {
 
-            String objet = binding.tfObject.getEditText().getText().toString();
-            String location = spinnerSelection;
-            Date meetingStartDate = globalCalendar.getTime();
-            int meetingDuration = hourSelection;
-            String participant = binding.tfParticipants.getEditText().getText().toString();
+            objet = binding.tfObject.getEditText().getText().toString();
+            location = spinnerSelection;
+            meetingStartDate = globalCalendar.getTime();
+            meetingDuration = hourSelection;
+            participant = addMails;
 
-            if (objet.isEmpty()) {
-                binding.tfObject.setError("Please type an object");
-                return;
-            }
-            if (location.matches("None")){
-                Toast.makeText(this, "Please choose a location", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (binding.tvSelectedDate.getText().toString().matches("../../..")){
-                Toast.makeText(this, "Please choose a date", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (binding.tvSelectedHourStart.getText().toString().matches(".. : ..")){
-                Toast.makeText(this, "Please choose a hour", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (hourSelection == 0){
-                Toast.makeText(this, "Please choose a duration", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (participant.isEmpty()) {
-                binding.tfParticipants.setError("Please type a participant");
-                return;
-            }
+            if(checkMeetingIsComplete()){
 
             mMeetingApiService.createMeeting(new Meeting(objet,location,meetingStartDate,meetingDuration,participant));
             Toast.makeText(this, "Meeting added !", Toast.LENGTH_SHORT).show();
-            finish();
+            finish();}
         });
+    }
+
+
+
+    public static boolean isEmailValid(String mail) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(mail);
+        return matcher.matches();
     }
 }
 

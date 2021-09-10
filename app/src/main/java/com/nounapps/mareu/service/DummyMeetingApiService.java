@@ -1,6 +1,10 @@
 package com.nounapps.mareu.service;
 
+import android.widget.Toast;
+
 import com.nounapps.mareu.model.Meeting;
+import com.nounapps.mareu.ui.meeting_list.AddMeetingActivity;
+import com.nounapps.mareu.ui.meeting_list.MeetingListActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +17,8 @@ import java.util.List;
 public class DummyMeetingApiService implements MeetingApiService {
 
     private final List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
+    private MeetingListActivity mMeetingListActivity;
+    private AddMeetingActivity mAddMeetingActivity;
 
     @Override
     public List<Meeting> getMeetings() {
@@ -47,6 +53,25 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public void createMeeting(Meeting meeting) {
         meetings.add(meeting);
+
+//        Date meetingDateChecked = meeting.getStartDate();
+//        long meetingDateCheckedMillis = meetingDateChecked.getTime();
+//        int meetingDurationChecked = meeting.getMeetingDuration();
+//        long meetingDurationCheckedMillis = meetingDurationChecked * 60 * 60 * 1000;
+//        long EndFfMeetingCheckedMillis = meetingDateCheckedMillis + meetingDurationCheckedMillis;
+//
+//        for(Meeting mCreated : meetings){
+//
+//            long meetingsStartDateMillis = mCreated.getStartDateMillis();
+////            long meetingsEndDateMillis = mCreated.getEndDateMillis();
+//
+//            if (mCreated.getLocation().contains(meeting.getLocation())  &&
+//                    (meeting.getStartDateMillis()) >= (mCreated.getStartDateMillis()) && <= (mCreated.getEndDateMillis())) &&
+//                    (mCreated.getStartDateMillis() <= EndFfMeetingCheckedMillis) & (EndFfMeetingCheckedMillis <= mCreated.getEndDateMillis())){
+//            }else {
+//                meetings.add(meeting);
+//            }
+//        }
     }
 
 
@@ -65,5 +90,8 @@ public class DummyMeetingApiService implements MeetingApiService {
 
         }
         return result;
+    }
+
+    public void checkDateMeetingNotAlreadyReserved(Meeting meeting) {
     }
 }

@@ -19,8 +19,10 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyListMeetingRecyclerViewAdapter.MyViewHolder>{
 
@@ -87,7 +89,7 @@ public class MyListMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyLis
             mIVcolorCircle.setColorFilter(meeting.getMeetingColor());
             mTVmeetingDate.setText(meetingTime1);
             mTVmeeting.setText(meeting.getObject()+" - "+meetingTime2+" -> "+meetingDuration+" hour(s) - "+meeting.getLocation());
-            mTVparticipants.setText(meeting.getParticipants());
+            mTVparticipants.setText(meeting.getAllParticipants());
         }
     }
 }

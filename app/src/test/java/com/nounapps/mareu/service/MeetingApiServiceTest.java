@@ -32,9 +32,9 @@ public void setUp(){service = DI.getNewInstanceApiService();}
     public void getFilteredMeetingSuccess() {
         List<Meeting> meetings = service.getMeetings();
         meetings.clear();
-        meetings.add(new Meeting(0,"Reunion D","Wario",new Date(1639303200000L),1,"example@example.com"));
-        meetings.add(new Meeting(1,"Reunion E","Peach",new Date(1639387800000L),2,"example@example.com"));
-        meetings.add(new Meeting(2,"Reunion F","Koopa",new Date(1639576800000L),4,"example@example.com"));
+        meetings.add(new Meeting(0,"Reunion D","Wario",new Date(1639303200000L),1,new String[]{"example@example.com"}));
+        meetings.add(new Meeting(1,"Reunion E","Peach",new Date(1639387800000L),2,new String[]{"example@example.com"}));
+        meetings.add(new Meeting(2,"Reunion F","Koopa",new Date(1639576800000L),4,new String[]{"example@example.com"}));
         List<Meeting> filteredMeetingList = new ArrayList<>();
         filteredMeetingList.addAll(service.getFilteredMeeting("Wario"));
         boolean goodLocation = true;
@@ -67,9 +67,9 @@ public void setUp(){service = DI.getNewInstanceApiService();}
     public void getMeetingFilteredByDateSuccess() {
         List<Meeting> meetings = service.getMeetings();
         meetings.clear();
-        meetings.add(new Meeting(0,"Reunion D","Wario",new Date(1639303200000L),1,"example@example.com"));
-        meetings.add(new Meeting(1,"Reunion E","Peach",new Date(1639387800000L),2,"example@example.com"));
-        meetings.add(new Meeting(2,"Reunion F","Koopa",new Date(1639576800000L),4,"example@example.com"));
+        meetings.add(new Meeting(0,"Reunion D","Wario",new Date(1639303200000L),1,new String[]{"example@example.com"}));
+        meetings.add(new Meeting(1,"Reunion E","Peach",new Date(1639387800000L),2,new String[]{"example@example.com"}));
+        meetings.add(new Meeting(2,"Reunion F","Koopa",new Date(1639576800000L),4,new String[]{"example@example.com"}));
         List<Meeting> result = new ArrayList<>();
         Date dateFilter= new Date();
         long selectedDateFilter = 1639387800000L;
