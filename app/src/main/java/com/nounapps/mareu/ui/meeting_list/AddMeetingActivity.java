@@ -201,8 +201,8 @@ public class AddMeetingActivity extends AppCompatActivity    {
             Toast.makeText(this, "Please choose a duration", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (Arrays.toString(participant).contains("null")) {
-            binding.tfParticipants.setError("Please type a participantjj mail");
+        if (listMails.isEmpty()) {
+            binding.tfParticipants.setError("Please type a participant mail");
             return false;
         }
         return true;
