@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.style.UpdateAppearance;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ import com.nounapps.mareu.service.MeetingApiService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,7 +46,7 @@ public class AddMeetingActivity extends AppCompatActivity    {
     private int hourSelection;
 
     private Calendar globalCalendar = Calendar.getInstance();
-    private String[] addMails;
+    private ArrayList<String> listMails = new ArrayList<>();
     private String objet;
     private String location ;
     private Date meetingStartDate;
@@ -151,21 +153,22 @@ public class AddMeetingActivity extends AppCompatActivity    {
             }
         });
     }
+
     public void addMailTag(){
         binding.mbAddMailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (binding.tfParticipants.getEditText().getText().toString().isEmpty()) {
-                    binding.tfParticipants.setError("Please type a participant");
+                String mailTests = binding.tfParticipants.getEditText().getText().toString();
+                if (mailTests.isEmpty()||!Patterns.EMAIL_ADDRESS.matcher(mailTests).matches())  {
+                    binding.tfParticipants.setError("Please type a participant mail");
                 } else {
 
 
-                addMails = binding.tfParticipants.getEditText().getText().toString().split(" ");
+                String goodMail = binding.tfParticipants.getEditText().getText().toString();
                 LayoutInflater participantsInflater = LayoutInflater.from(AddMeetingActivity.this);
-                for (String text : addMails) {
-                    Chip chipMail = (Chip) participantsInflater.inflate(R.layout.chip_mail_item, null, false);
-                    chipMail.setText(text);
-                    chipMail.setOnCloseIconClickListener(new View.OnClickListener() {
+                Chip chipMail = (Chip) participantsInflater.inflate(R.layout.chip_mail_item, null, false);
+                chipMail.setText(goodMail);
+                chipMail.setOnCloseIconClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             binding.cgMail.removeView(v);
@@ -174,8 +177,7 @@ public class AddMeetingActivity extends AppCompatActivity    {
                     binding.cgMail.addView(chipMail);
                 }
             }
-            }
-        });
+            });
     }
 
     public boolean checkMeetingIsComplete(){
@@ -200,7 +202,7 @@ public class AddMeetingActivity extends AppCompatActivity    {
             return false;
         }
         if (Arrays.toString(participant).contains("null")) {
-            binding.tfParticipants.setError("Please type a participant");
+            binding.tfParticipants.setError("Please type a participantjj mail");
             return false;
         }
         return true;
@@ -208,12 +210,13 @@ public class AddMeetingActivity extends AppCompatActivity    {
     }
     public void createMeeting(){
         binding.create.setOnClickListener(v -> {
+            chipGroupGetMail();
 
             objet = binding.tfObject.getEditText().getText().toString();
             location = spinnerSelection;
             meetingStartDate = globalCalendar.getTime();
             meetingDuration = hourSelection;
-            participant = addMails;
+            participant = listMails.toArray(new String[0]);
 
             if(checkMeetingIsComplete()){
 
@@ -223,13 +226,11 @@ public class AddMeetingActivity extends AppCompatActivity    {
         });
     }
 
-
-
-    public static boolean isEmailValid(String mail) {
-        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(mail);
-        return matcher.matches();
+    public void chipGroupGetMail(){
+        for (int i = 0; i < binding.cgMail.getChildCount(); i++) {
+            String email = ((Chip) binding.cgMail.getChildAt(i)).getText().toString();
+            listMails.add(email);
+        }
     }
 }
 
