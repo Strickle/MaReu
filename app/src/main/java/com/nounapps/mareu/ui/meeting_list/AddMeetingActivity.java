@@ -202,7 +202,7 @@ public class AddMeetingActivity extends AppCompatActivity    {
             return false;
         }
         if (listMails.isEmpty()) {
-            binding.tfParticipants.setError("Please type a participant mail");
+            binding.tfParticipants.setError("Please type a participant mail and Add it");
             return false;
         }
         return true;

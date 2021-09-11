@@ -71,13 +71,4 @@
         app:srcCompat="@drawable/ic_baseline_delete_24"
         app:tint="#3F445E" />
 
-    <View android:id="@+id/tile_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/tv_participants"/>
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

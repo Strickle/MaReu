@@ -53,6 +53,8 @@ public class MeetingListActivity extends AppCompatActivity {
         mRecyclerview = findViewById(R.id.rv_meeting);
         MyListMeetingRecyclerViewAdapter myAdapter = new MyListMeetingRecyclerViewAdapter(mMeetings);
 
+        mRecyclerview.addItemDecoration(new DividerItemDecoration(MeetingListActivity.this, DividerItemDecoration.VERTICAL));
+
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerview.setAdapter(myAdapter);
     }
