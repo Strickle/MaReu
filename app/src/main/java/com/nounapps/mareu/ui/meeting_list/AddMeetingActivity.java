@@ -52,6 +52,8 @@ public class AddMeetingActivity extends AppCompatActivity    {
     private Date meetingStartDate;
     private int meetingDuration;
     private String[] participant;
+    private Calendar calendar = Calendar.getInstance();
+
 
 
     @Override
@@ -90,7 +92,6 @@ public class AddMeetingActivity extends AppCompatActivity    {
         }
 
     private void selectDate() {
-        Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
@@ -183,26 +184,37 @@ public class AddMeetingActivity extends AppCompatActivity    {
     public boolean checkMeetingIsComplete(){
         if (objet.isEmpty()) {
             binding.tfObject.setError("Please type an object");
+            listMails.clear();
             return false;
         }
         if (location.matches("None")){
             Toast.makeText(this, "Please choose a location", Toast.LENGTH_SHORT).show();
+            listMails.clear();
             return false;
         }
         if (binding.tvSelectedDate.getText().toString().matches("../../..")){
             Toast.makeText(this, "Please choose a date", Toast.LENGTH_SHORT).show();
+            listMails.clear();
+            return false;
+        }
+        if(globalCalendar.before(calendar)) {
+            Toast.makeText(this, "Please choose a future date", Toast.LENGTH_SHORT).show();
+            listMails.clear();
             return false;
         }
         if (binding.tvSelectedHourStart.getText().toString().matches(".. : ..")){
             Toast.makeText(this, "Please choose a hour", Toast.LENGTH_SHORT).show();
+            listMails.clear();
             return false;
         }
         if (hourSelection == 0){
             Toast.makeText(this, "Please choose a duration", Toast.LENGTH_SHORT).show();
+            listMails.clear();
             return false;
         }
         if (listMails.isEmpty()) {
             binding.tfParticipants.setError("Please type a participant mail and Add it");
+            listMails.clear();
             return false;
         }
         return true;
@@ -217,7 +229,6 @@ public class AddMeetingActivity extends AppCompatActivity    {
             meetingStartDate = globalCalendar.getTime();
             meetingDuration = hourSelection;
             participant = listMails.toArray(new String[0]);
-
             if(checkMeetingIsComplete()){
 
             mMeetingApiService.createMeeting(new Meeting(objet,location,meetingStartDate,meetingDuration,participant));
