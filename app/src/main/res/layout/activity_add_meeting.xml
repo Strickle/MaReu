@@ -2,15 +2,14 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".ui.meeting_list.AddMeetingActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tfObject"
@@ -18,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="40dp"
-            android:hint="Type Meeting Object"
+            android:hint="@string/tfObject_text"
             android:textStyle="italic|bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +33,6 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <ImageView
             android:id="@+id/ivLocation"
             android:layout_width="wrap_content"
@@ -44,14 +42,15 @@
             app:layout_constraintBottom_toBottomOf="@+id/tvSelectRoom"
             app:layout_constraintEnd_toStartOf="@+id/tvSelectRoom"
             app:layout_constraintTop_toTopOf="@+id/tvSelectRoom"
-            app:tint="#757575" />
+            app:tint="#757575"
+            android:contentDescription="@string/ivLocation_content_description" />
 
         <TextView
             android:id="@+id/tvSelectRoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="Select the location :"
+            android:text="@string/tvSelectRoom_text"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/tfObject"
@@ -68,6 +67,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvSelectRoom" />
 
         <ImageView
+            android:id="@+id/ivCalendarIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -75,14 +75,15 @@
             app:layout_constraintBottom_toBottomOf="@+id/tvMeetingDate"
             app:layout_constraintEnd_toStartOf="@+id/tvMeetingDate"
             app:layout_constraintTop_toTopOf="@+id/tvMeetingDate"
-            app:tint="#757575" />
+            app:tint="#757575"
+            android:contentDescription="@string/ivCalendarIcon_content_description" />
 
         <TextView
             android:id="@+id/tvMeetingDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:text="Select meeting date :"
+            android:text="@string/tvMeetingDate_text"
             android:textColor="#757575"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -95,16 +96,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/date"
+            android:text="@string/tvSelectedDate_text"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/tvMeetingDate"
             app:layout_constraintStart_toStartOf="@+id/tvMeetingDate"
             app:layout_constraintTop_toBottomOf="@+id/tvMeetingDate" />
 
-
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ivTimeIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -112,14 +112,15 @@
             app:layout_constraintBottom_toBottomOf="@+id/tvMeetingHourStart"
             app:layout_constraintEnd_toStartOf="@+id/tvMeetingHourStart"
             app:layout_constraintTop_toTopOf="@+id/tvMeetingHourStart"
-            app:tint="#757575" />
+            app:tint="#757575"
+            android:contentDescription="@string/ivTimeIcon_content_description" />
 
         <TextView
             android:id="@+id/tvMeetingHourStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="Select meeting hour start"
+            android:text="@string/tvMeetingHourStart_text"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/hour"
+            android:text="@string/tvSelectedHourStart_text"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/tvMeetingHourStart"
@@ -143,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="Select meeting duration"
+            android:text="@string/tvMeetingDuration_text"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -165,7 +166,7 @@
             android:id="@+id/tv_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hour(s)"
+            android:text="@string/tv_duration_text"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/sDurationMeeting"
@@ -178,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="40dp"
-            android:hint="Type participant's mail"
+            android:hint="@string/tfParticipants_text"
             android:textSize="20sp"
             android:textStyle="italic|bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +194,6 @@
                 android:lines="1"
                 android:maxLines="1"
                 android:singleLine="true" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -203,7 +203,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:enabled="false"
-            android:text="Add mail"
+            android:text="@string/mbAddMailButton_text"
             app:cornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -216,17 +216,17 @@
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mbAddMailButton"/>
+            app:layout_constraintTop_toBottomOf="@+id/mbAddMailButton" />
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/create"
+            android:id="@+id/mbCreate"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:enabled="false"
-            android:text="Save"
+            android:text="@string/mbCreate_text"
             app:cornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

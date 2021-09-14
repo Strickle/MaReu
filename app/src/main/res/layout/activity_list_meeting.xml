@@ -7,16 +7,12 @@
     tools:context=".ui.meeting_list.MeetingListActivity"
     tools:menu="@menu/my_menu">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_meeting"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/activity_list_item">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/activity_list_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_meeting"
@@ -28,7 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_white_24"
-        app:tint="@color/white" />
-
+        app:tint="@color/white"
+        android:contentDescription="@string/add_meeting_content_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

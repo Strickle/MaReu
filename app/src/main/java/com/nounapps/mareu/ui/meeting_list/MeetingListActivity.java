@@ -15,8 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 
-
-
 import com.nounapps.mareu.R;
 import com.nounapps.mareu.databinding.ActivityListMeetingBinding;
 import com.nounapps.mareu.di.DI;
@@ -49,7 +47,7 @@ public class MeetingListActivity extends AppCompatActivity {
         setButtonAddMeeting();
     }
 
-    private void initMyListMeetingRecyclerView(){
+    private void initMyListMeetingRecyclerView() {
         mRecyclerview = findViewById(R.id.rv_meeting);
         MyListMeetingRecyclerViewAdapter myAdapter = new MyListMeetingRecyclerViewAdapter(mMeetings);
 
@@ -59,26 +57,24 @@ public class MeetingListActivity extends AppCompatActivity {
         mRecyclerview.setAdapter(myAdapter);
     }
 
-    private void initData(){
+    private void initData() {
         mMeetings = new ArrayList<>(mMeetingApiService.getMeetings());
     }
 
-    private void setButtonAddMeeting(){
+    private void setButtonAddMeeting() {
         binding.addMeeting.setOnClickListener(v -> {
             Intent intent = new Intent(MeetingListActivity.this, AddMeetingActivity.class);
             startActivity(intent);
         });
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.my_menu,menu);
+        inflater.inflate(R.menu.my_menu, menu);
 
         MenuItem menuItem = menu.findItem(R.id.meetingNameFilter);
-        SearchView searchView =(SearchView) menuItem.getActionView();
+        SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -97,7 +93,7 @@ public class MeetingListActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.meetingNameFilter:
                 return true;
             case R.id.meetingDateFilter:
@@ -134,7 +130,6 @@ public class MeetingListActivity extends AppCompatActivity {
 
         datePickerDialog.show();
     }
-
 
     /**
      * Init the List of neighbours

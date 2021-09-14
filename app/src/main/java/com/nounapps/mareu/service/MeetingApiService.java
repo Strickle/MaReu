@@ -10,6 +10,7 @@ public interface MeetingApiService {
 
     /**
      * Get all Meeting
+     *
      * @return {@link List}
      */
     List<Meeting> getMeetings();
@@ -19,12 +20,14 @@ public interface MeetingApiService {
 
     /**
      * Delete a meeting
-     * @param  meeting
+     *
+     * @param meeting
      */
     void deleteMeeting(Meeting meeting);
 
     /**
      * Create a meeting
+     *
      * @param meeting
      */
     boolean createMeeting(Meeting meeting);

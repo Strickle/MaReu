@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.chip.Chip
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/chipMailItem"
     style="@style/Widget.MaterialComponents.Chip.Entry"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:closeIcon="@drawable/ic_baseline_close_24"
+    android:text="@string/chipMailItem_text"
     android:textSize="12sp"
-    android:text="example@mail.com">
+    app:closeIcon="@drawable/ic_baseline_close_24">
 
 </com.google.android.material.chip.Chip>

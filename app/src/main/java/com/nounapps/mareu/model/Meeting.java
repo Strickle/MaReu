@@ -2,6 +2,7 @@ package com.nounapps.mareu.model;
 
 
 import android.graphics.Color;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
@@ -21,39 +22,61 @@ public class Meeting implements Serializable {
         setRandomColor();
         setEndDateMillis();
         setEndDate();
-
     }
 
-    /** Identifier */
+    /**
+     * Identifier
+     */
     private long id;
 
-    /** Objet of meeting */
+    /**
+     * Objet of meeting
+     */
     private String object;
 
-    /** Location of meeting */
+    /**
+     * Location of meeting
+     */
     private String location;
 
-    /** date of meeting begin */
+    /**
+     * date of meeting begin
+     */
     private Date startDate;
 
-    /** date of meeting finish in millis */
+    /**
+     * date of meeting finish in millis
+     */
     private Date endDate;
 
-    /** date of meeting begin in millis*/
+    /**
+     * date of meeting begin in millis
+     */
     private long startDateMillis;
 
-    /** date of meeting finish in millis */
+    /**
+     * date of meeting finish in millis
+     */
     private long endDateMillis;
 
-    /** date of meeting finish */
+    /**
+     * date of meeting finish
+     */
     private int meetingDuration;
 
-    /** Participant's mail */
+    /**
+     * Participant's mail
+     */
     private String[] participants;
 
+    /**
+     * Participant's mail formatted for preview
+     */
     private String allParticipants;
 
-    /** Meeting's color */
+    /**
+     * Meeting's color
+     */
     private int meetingColor;
 
     public Meeting(long id, String object, String location, Date startDate, int meetingDuration, String[] participants) {
@@ -113,14 +136,16 @@ public class Meeting implements Serializable {
     }
 
     public void setEndDate() {
-        endDate =new Date(getEndDateMillis());
+        endDate = new Date(getEndDateMillis());
     }
 
-    public int getMeetingDuration() { return meetingDuration; }
+    public int getMeetingDuration() {
+        return meetingDuration;
+    }
 
-    public void setMeetingDuration(int meetingDuration) { this.meetingDuration = meetingDuration; }
-
-
+    public void setMeetingDuration(int meetingDuration) {
+        this.meetingDuration = meetingDuration;
+    }
 
     public int getMeetingColor() {
         return meetingColor;
@@ -130,7 +155,15 @@ public class Meeting implements Serializable {
         this.meetingColor = meetingColor;
     }
 
-    public void setRandomColor(){
+    public long getEndDateMillis() {
+        return endDateMillis;
+    }
+
+    public long getStartDateMillis() {
+        return startDateMillis;
+    }
+
+    public void setRandomColor() {
         Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
         meetingColor = color;
@@ -148,17 +181,11 @@ public class Meeting implements Serializable {
         endDateMillis = meetingEndDateMillis;
         startDateMillis = meetingDateStartMillis;
     }
-    public long getEndDateMillis() {
-        return endDateMillis;
-    }
-    public long getStartDateMillis() {return startDateMillis; }
 
-    public String removeFirstAndLast(String allParticipants){
+    public String removeFirstAndLast(String allParticipants) {
         allParticipants = Arrays.toString(getParticipants());
-        allParticipants = allParticipants.replaceAll("\\[","");
-        allParticipants = allParticipants.replaceAll("\\]","");
+        allParticipants = allParticipants.replaceAll("\\[", "");
+        allParticipants = allParticipants.replaceAll("\\]", "");
         return allParticipants;
     }
-
-
 }

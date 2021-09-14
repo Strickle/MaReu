@@ -14,6 +14,7 @@ public class DeleteMeetingEvent {
 
     /**
      * Constructor.
+     *
      * @param meeting
      */
     public DeleteMeetingEvent(Meeting meeting) {

@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">MaReu</string>
-    <string name="basket">delete_icon</string>
-    <string name="date">../../..</string>
-    <string name="hour">.. : ..</string>
-    
+
+    //Add activity_add_meeting
+    <string name="tfObject_text">Type Meeting Object</string>
+    <string name="ivLocation_content_description">Location Icon</string>
+    <string name="tvSelectRoom_text">Select the location :</string>
 
     <string-array name="meetings_room_array">
         <item>None</item>
@@ -19,6 +20,29 @@
         <item>Zelda</item>
     </string-array>
 
+    <string name="ivCalendarIcon_content_description">Calendar icon</string>
+    <string name="tvMeetingDate_text">Select meeting date :</string>
+    <string name="tvSelectedDate_text">../../..</string>
+    <string name="ivTimeIcon_content_description">Time icon</string>
+    <string name="tvMeetingHourStart_text">Select meeting hour start :</string>
+    <string name="tvSelectedHourStart_text">.. : ..</string>
+    <string name="tvMeetingDuration_text">Select meeting duration :</string>
+    <string name="tv_duration_text">hour(s)</string>
+    <string name="tfParticipants_text">Type participant\'s mail</string>
+    <string name="mbAddMailButton_text">Add mail</string>
+    <string name="mbCreate_text">Save</string>
 
+    //activity_list_item
+    <string name="item_list_color_circle_content_description">Circle color</string>
+    <string name="tv_meetingDate_text">12/11/2021</string>
+    <string name="tv_meeting_text">Réunion A - 14h00 - Peach</string>
+    <string name="tv_participants_text">maxime@lamzone.com, alex@lamzon.com</string>
+    <string name="item_list_delete_button_content_description">delete_icon</string>
+
+    //activity_list_meeting
+    <string name="add_meeting_content_description">Add button</string>
+
+    //chip_mail_item
+    <string name="chipMailItem_text">example@mail.com</string>
 
 </resources>

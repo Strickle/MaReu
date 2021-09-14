@@ -7,7 +7,6 @@ import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.style.UpdateAppearance;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,22 +20,17 @@ import com.nounapps.mareu.R;
 import com.nounapps.mareu.databinding.ActivityAddMeetingBinding;
 import com.nounapps.mareu.di.DI;
 import com.nounapps.mareu.model.Meeting;
-import com.nounapps.mareu.service.DummyMeetingApiService;
-import com.nounapps.mareu.service.DummyMeetingGenerator;
 import com.nounapps.mareu.service.MeetingApiService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class AddMeetingActivity extends AppCompatActivity    {
+
+public class AddMeetingActivity extends AppCompatActivity {
 
     private ActivityAddMeetingBinding binding;
     private MeetingApiService mMeetingApiService;
@@ -48,13 +42,11 @@ public class AddMeetingActivity extends AppCompatActivity    {
     private Calendar globalCalendar = Calendar.getInstance();
     private ArrayList<String> listMails = new ArrayList<>();
     private String objet;
-    private String location ;
+    private String location;
     private Date meetingStartDate;
     private int meetingDuration;
     private String[] participant;
     private Calendar calendar = Calendar.getInstance();
-    private boolean freeDate = true;
-
 
 
     @Override
@@ -65,7 +57,7 @@ public class AddMeetingActivity extends AppCompatActivity    {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         mMeetingApiService = DI.getMeetingApiService();
         binding.mbAddMailButton.setEnabled(true);
-        binding.create.setEnabled(true);
+        binding.mbCreate.setEnabled(true);
         selectRoom();
         selectDate();
         selectStartHour();
@@ -75,22 +67,22 @@ public class AddMeetingActivity extends AppCompatActivity    {
     }
 
     private void selectRoom() {
-            Spinner spinner = findViewById(R.id.sMeetingRoom);
-            ArrayAdapter<CharSequence> roomAdapter = ArrayAdapter.createFromResource(this,
-                    R.array.meetings_room_array, android.R.layout.simple_spinner_item);
-            roomAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(roomAdapter);
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    spinnerSelection = parent.getItemAtPosition(position).toString();
-                }
+        Spinner spinner = findViewById(R.id.sMeetingRoom);
+        ArrayAdapter<CharSequence> roomAdapter = ArrayAdapter.createFromResource(this,
+                R.array.meetings_room_array, android.R.layout.simple_spinner_item);
+        roomAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(roomAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerSelection = parent.getItemAtPosition(position).toString();
+            }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-        }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
 
     private void selectDate() {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -141,8 +133,8 @@ public class AddMeetingActivity extends AppCompatActivity    {
 
     private void selectMeetingDuration() {
         Spinner spinnerRoom = findViewById(R.id.sDurationMeeting);
-        Integer[] meetingHourItems = new Integer[]{0,1,2,3,4};
-        ArrayAdapter<Integer> durationAdapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, meetingHourItems);
+        Integer[] meetingHourItems = new Integer[]{0, 1, 2, 3, 4};
+        ArrayAdapter<Integer> durationAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, meetingHourItems);
         spinnerRoom.setAdapter(durationAdapter);
         spinnerRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -156,21 +148,21 @@ public class AddMeetingActivity extends AppCompatActivity    {
         });
     }
 
-    public void addMailTag(){
+    public void addMailTag() {
         binding.mbAddMailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String mailTests = binding.tfParticipants.getEditText().getText().toString();
-                if (mailTests.isEmpty()||!Patterns.EMAIL_ADDRESS.matcher(mailTests).matches())  {
+                if (mailTests.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(mailTests).matches()) {
                     binding.tfParticipants.setError("Please type a participant mail");
                 } else {
 
 
-                String goodMail = binding.tfParticipants.getEditText().getText().toString();
-                LayoutInflater participantsInflater = LayoutInflater.from(AddMeetingActivity.this);
-                Chip chipMail = (Chip) participantsInflater.inflate(R.layout.chip_mail_item, null, false);
-                chipMail.setText(goodMail);
-                chipMail.setOnCloseIconClickListener(new View.OnClickListener() {
+                    String goodMail = binding.tfParticipants.getEditText().getText().toString();
+                    LayoutInflater participantsInflater = LayoutInflater.from(AddMeetingActivity.this);
+                    Chip chipMail = (Chip) participantsInflater.inflate(R.layout.chip_mail_item, null, false);
+                    chipMail.setText(goodMail);
+                    chipMail.setOnCloseIconClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             binding.cgMail.removeView(v);
@@ -179,43 +171,43 @@ public class AddMeetingActivity extends AppCompatActivity    {
                     binding.cgMail.addView(chipMail);
                 }
             }
-            });
+        });
     }
 
-    public void chipGroupGetMail(){
+    public void chipGroupGetMail() {
         for (int i = 0; i < binding.cgMail.getChildCount(); i++) {
             String email = ((Chip) binding.cgMail.getChildAt(i)).getText().toString();
             listMails.add(email);
         }
     }
 
-    public boolean checkMeetingIsComplete(){
+    public boolean checkMeetingIsComplete() {
         if (objet.isEmpty()) {
             binding.tfObject.setError("Please type an object");
             listMails.clear();
             return false;
         }
-        if (location.matches("None")){
+        if (location.matches("None")) {
             Toast.makeText(this, "Please choose a location", Toast.LENGTH_SHORT).show();
             listMails.clear();
             return false;
         }
-        if (binding.tvSelectedDate.getText().toString().matches("../../..")){
+        if (binding.tvSelectedDate.getText().toString().matches("../../..")) {
             Toast.makeText(this, "Please choose a date", Toast.LENGTH_SHORT).show();
             listMails.clear();
             return false;
         }
-        if(globalCalendar.before(calendar)) {
+        if (globalCalendar.before(calendar)) {
             Toast.makeText(this, "Please choose a future date", Toast.LENGTH_SHORT).show();
             listMails.clear();
             return false;
         }
-        if (binding.tvSelectedHourStart.getText().toString().matches(".. : ..")){
+        if (binding.tvSelectedHourStart.getText().toString().matches(".. : ..")) {
             Toast.makeText(this, "Please choose a hour", Toast.LENGTH_SHORT).show();
             listMails.clear();
             return false;
         }
-        if (hourSelection == 0){
+        if (hourSelection == 0) {
             Toast.makeText(this, "Please choose a duration", Toast.LENGTH_SHORT).show();
             listMails.clear();
             return false;
@@ -228,8 +220,8 @@ public class AddMeetingActivity extends AppCompatActivity    {
         return true;
     }
 
-    public void createMeeting(){
-        binding.create.setOnClickListener(v -> {
+    public void createMeeting() {
+        binding.mbCreate.setOnClickListener(v -> {
             chipGroupGetMail();
 
             objet = binding.tfObject.getEditText().getText().toString();
@@ -238,11 +230,13 @@ public class AddMeetingActivity extends AppCompatActivity    {
             meetingDuration = hourSelection;
             participant = listMails.toArray(new String[0]);
 
-            if(checkMeetingIsComplete()){
-            if (!mMeetingApiService.createMeeting(new Meeting(objet, location, meetingStartDate, meetingDuration, participant))){
-                Toast.makeText(this, "Please choose other location or date", Toast.LENGTH_SHORT).show();
-            }else{Toast.makeText(this, "Meeting add!", Toast.LENGTH_LONG).show();}
-            finish();
+            if (checkMeetingIsComplete()) {
+                if (!mMeetingApiService.createMeeting(new Meeting(objet, location, meetingStartDate, meetingDuration, participant))) {
+                    Toast.makeText(this, "Please choose other location or date", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Meeting add!", Toast.LENGTH_LONG).show();
+                }
+                finish();
             }
         });
     }
