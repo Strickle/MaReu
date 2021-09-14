@@ -19,6 +19,8 @@ public class Meeting implements Serializable {
         this.meetingDuration = meetingDuration;
         this.participants = participants;
         setRandomColor();
+        setEndDateMillis();
+        setEndDate();
 
     }
 
@@ -33,6 +35,9 @@ public class Meeting implements Serializable {
 
     /** date of meeting begin */
     private Date startDate;
+
+    /** date of meeting finish in millis */
+    private Date endDate;
 
     /** date of meeting begin in millis*/
     private long startDateMillis;
@@ -60,6 +65,7 @@ public class Meeting implements Serializable {
         this.participants = participants;
         setRandomColor();
         setEndDateMillis();
+        setEndDate();
     }
 
     public long getId() {
@@ -100,6 +106,14 @@ public class Meeting implements Serializable {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate() {
+        endDate =new Date(getEndDateMillis());
     }
 
     public int getMeetingDuration() { return meetingDuration; }

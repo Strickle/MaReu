@@ -53,6 +53,7 @@ public class AddMeetingActivity extends AppCompatActivity    {
     private int meetingDuration;
     private String[] participant;
     private Calendar calendar = Calendar.getInstance();
+    private boolean freeDate = true;
 
 
 
@@ -181,6 +182,13 @@ public class AddMeetingActivity extends AppCompatActivity    {
             });
     }
 
+    public void chipGroupGetMail(){
+        for (int i = 0; i < binding.cgMail.getChildCount(); i++) {
+            String email = ((Chip) binding.cgMail.getChildAt(i)).getText().toString();
+            listMails.add(email);
+        }
+    }
+
     public boolean checkMeetingIsComplete(){
         if (objet.isEmpty()) {
             binding.tfObject.setError("Please type an object");
@@ -218,8 +226,8 @@ public class AddMeetingActivity extends AppCompatActivity    {
             return false;
         }
         return true;
-
     }
+
     public void createMeeting(){
         binding.create.setOnClickListener(v -> {
             chipGroupGetMail();
@@ -229,19 +237,16 @@ public class AddMeetingActivity extends AppCompatActivity    {
             meetingStartDate = globalCalendar.getTime();
             meetingDuration = hourSelection;
             participant = listMails.toArray(new String[0]);
-            if(checkMeetingIsComplete()){
 
-            mMeetingApiService.createMeeting(new Meeting(objet,location,meetingStartDate,meetingDuration,participant));
-            Toast.makeText(this, "Meeting added !", Toast.LENGTH_SHORT).show();
-            finish();}
+            if(checkMeetingIsComplete()){
+            if (!mMeetingApiService.createMeeting(new Meeting(objet, location, meetingStartDate, meetingDuration, participant))){
+                Toast.makeText(this, "Please choose other location or date", Toast.LENGTH_SHORT).show();
+            }else{Toast.makeText(this, "Meeting add!", Toast.LENGTH_LONG).show();}
+            finish();
+            }
         });
     }
 
-    public void chipGroupGetMail(){
-        for (int i = 0; i < binding.cgMail.getChildCount(); i++) {
-            String email = ((Chip) binding.cgMail.getChildAt(i)).getText().toString();
-            listMails.add(email);
-        }
-    }
+
 }
 

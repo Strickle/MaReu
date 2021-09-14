@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class DummyMeetingApiService implements MeetingApiService {
 
+
     private final List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
-    private MeetingListActivity mMeetingListActivity;
-    private AddMeetingActivity mAddMeetingActivity;
+
 
     @Override
     public List<Meeting> getMeetings() {
@@ -51,27 +51,29 @@ public class DummyMeetingApiService implements MeetingApiService {
      * @param meeting
      */
     @Override
-    public void createMeeting(Meeting meeting) {
-        meetings.add(meeting);
+    public boolean createMeeting(Meeting meeting) {
 
-//        Date meetingDateChecked = meeting.getStartDate();
-//        long meetingDateCheckedMillis = meetingDateChecked.getTime();
-//        int meetingDurationChecked = meeting.getMeetingDuration();
-//        long meetingDurationCheckedMillis = meetingDurationChecked * 60 * 60 * 1000;
-//        long EndFfMeetingCheckedMillis = meetingDateCheckedMillis + meetingDurationCheckedMillis;
-//
-//        for(Meeting mCreated : meetings){
-//
-//            long meetingsStartDateMillis = mCreated.getStartDateMillis();
-////            long meetingsEndDateMillis = mCreated.getEndDateMillis();
-//
-//            if (mCreated.getLocation().contains(meeting.getLocation())  &&
-//                    (meeting.getStartDateMillis()) >= (mCreated.getStartDateMillis()) && <= (mCreated.getEndDateMillis())) &&
-//                    (mCreated.getStartDateMillis() <= EndFfMeetingCheckedMillis) & (EndFfMeetingCheckedMillis <= mCreated.getEndDateMillis())){
-//            }else {
-//                meetings.add(meeting);
-//            }
-//        }
+        for(Meeting mCreated : meetings){
+        Date meetingStartDateChecked = meeting.getStartDate();
+        long meetingDateCheckedMillis = meetingStartDateChecked.getTime();
+        int meetingDurationChecked = meeting.getMeetingDuration();
+        long meetingDurationCheckedMillis = meetingDurationChecked * 60 * 60 * 1000;
+        long EndFfMeetingCheckedMillis = meetingDateCheckedMillis + meetingDurationCheckedMillis;
+        Date meetingEndDateChecked = new Date(EndFfMeetingCheckedMillis);
+
+
+            if (mCreated.getLocation().contains(meeting.getLocation()) &&
+                    ((mCreated.getStartDate().before(meetingStartDateChecked) && mCreated.getEndDate().after(meetingStartDateChecked)) ||
+                            (mCreated.getStartDate().before(meetingEndDateChecked) && mCreated.getEndDate().after(meetingEndDateChecked)) ||
+                            ((mCreated.getStartDate().equals(meetingStartDateChecked)) && (mCreated.getStartDate().before(meetingEndDateChecked))) ||
+                            ((mCreated.getStartDate().after(meetingStartDateChecked)) && (mCreated.getEndDate().equals(meetingEndDateChecked))) ||
+                            ((mCreated.getStartDate().equals(meetingStartDateChecked)) && (mCreated.getEndDate().equals(meetingEndDateChecked))) ||
+                            ((mCreated.getStartDate().after(meetingStartDateChecked)) && (mCreated.getEndDate().before(meetingEndDateChecked))))) {
+                            return false;
+                    }
+        }
+        meetings.add(meeting);
+        return true;
     }
 
 
@@ -91,7 +93,20 @@ public class DummyMeetingApiService implements MeetingApiService {
         }
         return result;
     }
-
-    public void checkDateMeetingNotAlreadyReserved(Meeting meeting) {
-    }
 }
+//    Date meetingStartDateChecked = meeting.getStartDate();
+//    long meetingDateCheckedMillis = meetingStartDateChecked.getTime();
+//    int meetingDurationChecked = meeting.getMeetingDuration();
+//    long meetingDurationCheckedMillis = meetingDurationChecked * 60 * 60 * 1000;
+//    long EndFfMeetingCheckedMillis = meetingDateCheckedMillis + meetingDurationCheckedMillis;
+//    Date meetingEndDateChecked = new Date(EndFfMeetingCheckedMillis);
+//
+//        for(Meeting mCreated : meetings){
+//                if ((!mCreated.getLocation().contains(meeting.getLocation()) ||
+//                (!mCreated.getStartDate().before(meetingStartDateChecked)  || !mCreated.getEndDate().after(meetingStartDateChecked))) &&
+//                (!mCreated.getStartDate().before(meetingEndDateChecked) || !mCreated.getEndDate().after(meetingEndDateChecked))) {
+//                meetings.add(meeting);
+//                return true;
+//                }
+//                }return false;
+//                }
