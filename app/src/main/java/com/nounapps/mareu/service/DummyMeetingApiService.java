@@ -55,12 +55,11 @@ public class DummyMeetingApiService implements MeetingApiService {
 
         for (Meeting mCreated : meetings) {
             if (mCreated.getLocation().contains(meeting.getLocation()) &&
-                    ((mCreated.getStartDate().before(meetingStartDateChecked) && mCreated.getEndDate().after(meetingStartDateChecked)) ||
-                            (mCreated.getStartDate().before(meetingEndDateChecked) && mCreated.getEndDate().after(meetingEndDateChecked)) ||
-                            ((mCreated.getStartDate().equals(meetingStartDateChecked)) && (mCreated.getStartDate().before(meetingEndDateChecked))) ||
-                            ((mCreated.getStartDate().after(meetingStartDateChecked)) && (mCreated.getEndDate().equals(meetingEndDateChecked))) ||
-                            ((mCreated.getStartDate().equals(meetingStartDateChecked)) && (mCreated.getEndDate().equals(meetingEndDateChecked))) ||
-                            ((mCreated.getStartDate().after(meetingStartDateChecked)) && (mCreated.getEndDate().before(meetingEndDateChecked))))) {
+                    (meetingStartDateChecked.after(mCreated.getStartDate()) &&
+                            meetingStartDateChecked.before(mCreated.getEndDate())) ||
+                    (meetingStartDateChecked.before(mCreated.getStartDate()) &&
+                            meetingEndDateChecked.after(mCreated.getEndDate()))
+                    ) {
                 return false;
             }
         }

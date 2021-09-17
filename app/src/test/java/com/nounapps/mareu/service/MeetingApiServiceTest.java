@@ -58,7 +58,7 @@ public void setUp(){service = DI.getNewInstanceApiService();}
 
     @Test
     public void createMeetingSuccess() {
-        Meeting meetingCreated = service.getMeetings().get(0);
+        Meeting meetingCreated = new Meeting("Reunion F","Koopa",new Date(1641031200000L),4,new String[]{"example@example.com"});
         service.createMeeting(meetingCreated);
         assertTrue(service.getMeetings().contains(meetingCreated));
     }
@@ -72,7 +72,7 @@ public void setUp(){service = DI.getNewInstanceApiService();}
         meetings.add(new Meeting(2,"Reunion F","Koopa",new Date(1639576800000L),4,new String[]{"example@example.com"}));
         List<Meeting> result = new ArrayList<>();
         Date dateFilter= new Date();
-        long selectedDateFilter = 1639387800000L;
+        long selectedDateFilter = 1639576800000L;
         dateFilter.setTime(selectedDateFilter);
         result.addAll(service.getMeetingFilteredByDate(dateFilter));
         boolean sameDate = true;

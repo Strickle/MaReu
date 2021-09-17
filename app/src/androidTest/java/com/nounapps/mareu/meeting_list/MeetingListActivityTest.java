@@ -6,6 +6,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -111,7 +112,7 @@ public class MeetingListActivityTest {
 
         //We can input the date
         onView(withId(R.id.tvSelectedDate)).perform(click());
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2021, 8, 7));
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2021, 12, 7));
         onView(withId(android.R.id.button1)).perform(click());
 
         //We can input the time
@@ -119,13 +120,24 @@ public class MeetingListActivityTest {
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(14, 0));
         onView(withId(android.R.id.button1)).perform(click());
 
+        //We can choose teh duration
+        onView(withId(R.id.sDurationMeeting)).perform(click());
+        onData(allOf(is(4))).perform(click());
+
         //We can input participants mail
         ViewInteraction textInputEditText2 = onView(withId(R.id.tfParticipantsInput));
-        textInputEditText2.perform(replaceText("Test@live.fr"), closeSoftKeyboard());
+        textInputEditText2.perform(replaceText("test@live.fr"), closeSoftKeyboard());
 
-        //We can create meeting
-        ViewInteraction materialButton3 = onView(withId(R.id.create));
-        materialButton3.perform(click());
+        //We can add participants mail
+        onView(withId(R.id.svAddActivity)).perform(swipeUp());
+        ViewInteraction materialButton6 = onView(withId(R.id.mbAddMailButton));
+        materialButton6.perform(click());
+
+
+        //We can add participants mail
+        onView(withId(R.id.svAddActivity)).perform(swipeUp());
+        ViewInteraction materialButton7 = onView(withId(R.id.mbCreate));
+        materialButton7.perform(click());
 
         //Check the number of meeting is 3
         onView(ViewMatchers.withId(R.id.rv_meeting)).check(withItemCount(ITEMS_COUNT));
@@ -152,7 +164,7 @@ public class MeetingListActivityTest {
         //We check the location filter is the same of location from item
         ViewInteraction textView = onView(
                 allOf(withId(R.id.tv_meeting)));
-        textView.check(matches(withText("Réunion C - 12:00 - Toad")));
+        textView.check(matches(withText("Réunion C - 10:00 -> 4 hour(s) - Toad")));
     }
 
     /**
@@ -171,14 +183,14 @@ public class MeetingListActivityTest {
         materialTextView.perform(click());
         //We select the date filter option
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions
-                .setDate(2022, 8, 8));
+                .setDate(2021, 11, 26));
         onView(withId(android.R.id.button1)).perform(click());
         //We can view the filtered meeting;
         onView(ViewMatchers.withId(R.id.rv_meeting)).check(withItemCount(1));
         //We check the location filter is the same of location from item
         ViewInteraction textView = onView(
                 allOf(withId(R.id.tv_meeting)));
-        textView.check(matches(withText("Réunion C - 12:00 - Toad")));
+        textView.check(matches(withText("Réunion C - 10:00 -> 4 hour(s) - Toad")));
     }
 
     /**
@@ -202,7 +214,7 @@ public class MeetingListActivityTest {
         //We check the location filter is the same of location from item
         ViewInteraction textView = onView(
                 allOf(withId(R.id.tv_meeting)));
-        textView.check(matches(withText("Réunion C - 12:00 - Toad")));
+        textView.check(matches(withText("Réunion C - 10:00 -> 4 hour(s) - Toad")));
 
         //We click on hamburger menu
         onView(withId(R.id.filter)).perform(click());
@@ -220,14 +232,14 @@ public class MeetingListActivityTest {
         materialTextView3.perform(click());
         //We select the date filter option
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions
-                .setDate(2022, 8, 8));
+                .setDate(2021, 11, 26));
         onView(withId(android.R.id.button1)).perform(click());
         //We can view the filtered meeting;
         onView(ViewMatchers.withId(R.id.rv_meeting)).check(withItemCount(1));
         //We check the location filter is the same of location from item
         ViewInteraction textView2 = onView(
                 allOf(withId(R.id.tv_meeting)));
-        textView2.check(matches(withText("Réunion C - 12:00 - Toad")));
+        textView2.check(matches(withText("Réunion C - 10:00 -> 4 hour(s) - Toad")));
 
         //We click on hamburger menu
         onView(withId(R.id.filter)).perform(click());
