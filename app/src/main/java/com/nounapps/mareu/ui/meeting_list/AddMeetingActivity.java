@@ -154,7 +154,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String mailTests = binding.tfParticipants.getEditText().getText().toString();
                 if (mailTests.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(mailTests).matches()) {
-                    binding.tfParticipants.setError("Please type a participant mail");
+                    binding.tfParticipants.setError(getString(R.string.type_participant_mail_chip));
                 } else {
 
 
@@ -183,37 +183,37 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     public boolean checkMeetingIsComplete() {
         if (objet.isEmpty()) {
-            binding.tfObject.setError("Please type an object");
+            binding.tfObject.setError(getString(R.string.type_opbject));
             listMails.clear();
             return false;
         }
-        if (location.matches("None")) {
-            Toast.makeText(this, "Please choose a location", Toast.LENGTH_SHORT).show();
+        if (location.matches(getString(R.string.match_none_location))) {
+            Toast.makeText(this, getString(R.string.choose_location), Toast.LENGTH_SHORT).show();
             listMails.clear();
             return false;
         }
-        if (binding.tvSelectedDate.getText().toString().matches("../../..")) {
-            Toast.makeText(this, "Please choose a date", Toast.LENGTH_SHORT).show();
+        if (binding.tvSelectedDate.getText().toString().matches(getString(R.string.match_date_empty))) {
+            Toast.makeText(this, getString(R.string.choose_date), Toast.LENGTH_SHORT).show();
             listMails.clear();
             return false;
         }
         if (globalCalendar.before(calendar)) {
-            Toast.makeText(this, "Please choose a future date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.choose_a_future_date), Toast.LENGTH_SHORT).show();
             listMails.clear();
             return false;
         }
-        if (binding.tvSelectedHourStart.getText().toString().matches(".. : ..")) {
-            Toast.makeText(this, "Please choose a hour", Toast.LENGTH_SHORT).show();
+        if (binding.tvSelectedHourStart.getText().toString().matches(getString(R.string.match_time_empty))) {
+            Toast.makeText(this, getString(R.string.choose_hour), Toast.LENGTH_SHORT).show();
             listMails.clear();
             return false;
         }
         if (hourSelection == 0) {
-            Toast.makeText(this, "Please choose a duration", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.choose_duration), Toast.LENGTH_SHORT).show();
             listMails.clear();
             return false;
         }
         if (listMails.isEmpty()) {
-            binding.tfParticipants.setError("Please type a participant mail and Add it");
+            binding.tfParticipants.setError(getString(R.string.type_mail));
             listMails.clear();
             return false;
         }
@@ -232,11 +232,12 @@ public class AddMeetingActivity extends AppCompatActivity {
 
             if (checkMeetingIsComplete()) {
                 if (!mMeetingApiService.createMeeting(new Meeting(objet, location, meetingStartDate, meetingDuration, participant))) {
-                    Toast.makeText(this, "Please choose other location or date", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.choose_other_date_or_location), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Meeting add!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.meeting_add), Toast.LENGTH_LONG).show();
+                    finish();
                 }
-                finish();
+
             }
         });
     }

@@ -32,6 +32,24 @@
     <string name="mbAddMailButton_text">Add mail</string>
     <string name="mbCreate_text">Save</string>
 
+
+    <string name="type_participant_mail_chip">Please type a participant mail</string>
+    <string name="choose_location">Please choose a location</string>
+    <string name="type_opbject">Please type an object</string>
+    <string name="choose_date">Please choose a date</string>
+    <string name="choose_a_future_date">Please choose a future date</string>
+    <string name="choose_hour">Please choose a hour</string>
+    <string name="choose_duration">Please choose a duration</string>
+    <string name="type_mail">Please type a participant mail and Add it</string>
+    <string name="choose_other_date_or_location">Please choose other location or date</string>
+    <string name="meeting_add">Meeting add!</string>
+
+
+    <string name="match_none_location">None</string>
+    <string name="match_date_empty">../../..</string>
+    <string name="match_time_empty">.. : ..</string>
+
+
     //activity_list_item
     <string name="item_list_color_circle_content_description">Circle color</string>
     <string name="tv_meetingDate_text">12/11/2021</string>
@@ -44,5 +62,7 @@
 
     //chip_mail_item
     <string name="chipMailItem_text">example@mail.com</string>
+
+
 
 </resources>
